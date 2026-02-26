@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rosie Hub - List Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .message-bubble {
+            animation: slideIn 0.3s ease-out;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .list-item.active {
+            background: #003366;
+            color: white;
+        }
+        .list-item.active .list-name,
+        .list-item.active .list-type,
+        .list-item.active .list-count {
+            color: white;
+        }
+        .list-indicator {
+            width: 4px;
+            height: 32px;
+            border-radius: 2px;
+            margin-right: 12px;
+        }
+        .list-indicator.company {
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+        }
+        .list-indicator.personal {
+            background: linear-gradient(135deg, #a855f7, #7e22ce);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 flex flex-col h-screen">
+    <!-- Top Banner -->
+    <div class="bg-white border-b border-gray-200 px-8 py-4 flex items-center flex-shrink-0 relative">
+        <img src="data:image/webp;base64,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" alt="We Are Rosie" class="h-10 object-contain absolute left-8">
+        <div class="flex-1 text-center text-3xl font-bold text-gray-900">Rosie Hub</div>
+        <div class="absolute right-8 flex items-center gap-4">
+            <span class="text-sm text-gray-600">aisha&#64;wearerosie.com</span>
+            <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                AM
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex flex-1 overflow-hidden">
+        <!-- Left Sidebar: Saved Lists -->
+        <div class="w-80 bg-white border-r border-gray-200 flex flex-col overflow-hidden">
+            <div class="p-6 border-b border-gray-200 flex-shrink-0">
+                <h2 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">Saved Lists</h2>
+            </div>
+
+            <div class="flex-1 overflow-y-auto">
+                <div class="p-4">
+                    <!-- Company Lists -->
+                    <div class="mb-6">
+                        <h3 class="text-xs font-semibold text-gray-500 uppercase mb-3 px-3">Company</h3>
+                        <div id="companyLists" class="space-y-2">
+                            <!-- Company lists will be inserted here -->
+                        </div>
+                    </div>
+
+                    <!-- Personal Lists -->
+                    <div>
+                        <h3 class="text-xs font-semibold text-gray-500 uppercase mb-3 px-3">Personal</h3>
+                        <div id="personalLists" class="space-y-2">
+                            <!-- Personal lists will be inserted here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Page Header -->
+            <div class="bg-white border-b border-gray-200 px-8 py-6 flex-shrink-0">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 id="listTitle" class="text-3xl font-bold text-gray-900">Select a list</h2>
+                        <p id="listDescription" class="text-gray-600 mt-1">Choose a list from the sidebar to view profiles</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <button id="exportBtn" style="display: none;" class="flex items-center gap-2 px-4 py-2 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                            <span>📊</span>
+                            Export to Google Slides
+                        </button>
+                        <button id="deleteListBtn" style="display: none;" class="p-2 text-gray-500 hover:text-red-600 transition-colors">
+                            🗑️
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Grid -->
+            <div class="flex-1 overflow-hidden flex">
+                <!-- Profiles Section -->
+                <div class="flex-1 overflow-y-auto p-8" id="profilesSection" style="display: none;">
+                    <div class="max-w-3xl">
+                        <!-- Search Bar -->
+                        <div class="mb-6 flex gap-2">
+                            <input type="text" id="searchInput" placeholder="Search by candidate name/email" class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <button class="p-2 text-gray-500 hover:text-gray-700">🔍</button>
+                            <button class="p-2 text-gray-500 hover:text-gray-700">✕</button>
+                        </div>
+
+                        <!-- Select All Bar -->
+                        <div class="mb-6 flex items-center gap-3 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                            <input type="checkbox" id="selectAllCheckbox" class="w-5 h-5 rounded cursor-pointer accent-blue-500">
+                            <label for="selectAllCheckbox" class="text-sm font-medium text-gray-700 cursor-pointer flex-1">
+                                Select all profiles
+                            </label>
+                            <span id="profileCount" class="text-sm text-gray-600">0 of 0</span>
+                        </div>
+
+                        <!-- Profiles List -->
+                        <div id="profilesList" class="space-y-4">
+                            <!-- Profiles will be inserted here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Empty State -->
+                <div class="flex-1 flex items-center justify-center" id="emptyState">
+                    <div class="text-center">
+                        <div class="text-5xl mb-4">📋</div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">No list selected</h3>
+                        <p class="text-gray-600">Select a list from the sidebar to view and manage profiles</p>
+                    </div>
+                </div>
+
+                <!-- Right Sidebar: Discussion & Submission -->
+                <div id="rightSidebar" style="display: none;" class="w-96 bg-white border-l border-gray-200 flex flex-col overflow-hidden">
+                    <!-- Talent Submission Platform Button (Company Lists Only) -->
+                    <div id="companySubmissionBar" style="display: none;" class="p-4 border-b border-gray-200 bg-gradient-to-r from-blue-600 to-blue-700 flex-shrink-0">
+                        <button id="submissionBtn" class="w-full flex items-center justify-center gap-2 bg-white text-blue-600 font-semibold py-3 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                            <span>🚀</span>
+                            Talent Submission Platform
+                        </button>
+                        <p id="selectionCount" class="text-white text-center text-sm mt-2">0 profiles selected</p>
+                    </div>
+
+                    <!-- Add to Company List Button (Personal Lists Only) -->
+                    <div id="personalAddBar" style="display: none;" class="p-4 border-b border-gray-200 bg-gradient-to-r from-purple-600 to-purple-700 flex-shrink-0">
+                        <button id="addToCompanyBtn" class="w-full flex items-center justify-center gap-2 bg-white text-purple-600 font-semibold py-3 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                            <span>➕</span>
+                            Add to Company List
+                        </button>
+                        <p id="personalSelectionCount" class="text-white text-center text-sm mt-2">0 profiles selected</p>
+                    </div>
+
+                    <!-- Discussion Section -->
+                    <div class="flex-1 flex flex-col overflow-hidden">
+                        <div class="px-4 py-4 border-b border-gray-200 flex-shrink-0">
+                            <h3 class="font-semibold text-gray-900">Discussion</h3>
+                            <p class="text-xs text-gray-500">Team collaboration</p>
+                        </div>
+
+                        <!-- Messages -->
+                        <div id="messageContainer" class="flex-1 overflow-y-auto p-4 space-y-3">
+                            <!-- Messages will be inserted here -->
+                        </div>
+
+                        <!-- Tag Display -->
+                        <div id="tagContainer" class="border-t border-gray-200 px-4 py-2 flex flex-wrap gap-2 min-h-0 flex-shrink-0"></div>
+
+                        <!-- Message Input -->
+                        <div class="border-t border-gray-200 p-4 space-y-3 flex-shrink-0">
+                            <div class="flex gap-2">
+                                <input type="text" id="messageInput" placeholder="Type @ to mention..." class="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <button id="sendBtn" class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-lg transition-colors">
+                                    ➤
+                                </button>
+                            </div>
+
+                            <!-- Tag Suggestions -->
+                            <div id="tagSuggestions" style="display: none;" class="bg-white border border-gray-300 rounded-lg shadow-lg">
+                                <input type="text" id="tagSearch" placeholder="Search name or email..." class="w-full px-3 py-2 border-b border-gray-200 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500">
+                                <div id="suggestionsList" class="max-h-40 overflow-y-auto p-1"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add to Company List Modal -->
+    <div id="addToCompanyModal" style="display: none;" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-xl shadow-xl max-w-md w-full p-8 space-y-6">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span style="font-size: 32px;">➕</span>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-2">Add to Company List</h3>
+                <p id="addToCompanyModalText" class="text-gray-600"></p>
+            </div>
+
+            <div id="companyListOptions" class="space-y-2 max-h-64 overflow-y-auto"></div>
+
+            <div class="space-y-3">
+                <button id="confirmAddBtn" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 rounded-lg transition-colors flex items-center justify-center gap-2">
+                    <span>➕</span>
+                    Add Profiles
+                </button>
+                <button id="cancelAddBtn" class="w-full border border-gray-300 text-gray-700 font-semibold py-3 rounded-lg hover:bg-gray-50 transition-colors">
+                    Cancel
+                </button>
+            </div>
+
+            <div class="border-t border-gray-200 pt-4">
+                <button id="createNewListBtn" class="w-full text-purple-600 font-semibold py-2 hover:text-purple-700 transition-colors">
+                    + Create New Company List
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Submission Modal -->
+    <div id="submissionModal" style="display: none;" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-xl shadow-xl max-w-md w-full p-8 space-y-6">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span style="font-size: 32px;">🚀</span>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-2">Submit to Talent Platform</h3>
+                <p id="submissionModalText" class="text-gray-600"></p>
+            </div>
+
+            <div id="submissionList" class="bg-gray-50 rounded-lg p-4 space-y-2 max-h-64 overflow-y-auto"></div>
+
+            <div class="space-y-3">
+                <button id="confirmSubmissionBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-colors flex items-center justify-center gap-2">
+                    <span>🚀</span>
+                    Submit to Platform
+                </button>
+                <button id="cancelSubmissionBtn" class="w-full border border-gray-300 text-gray-700 font-semibold py-3 rounded-lg hover:bg-gray-50 transition-colors">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        const listsData = [
+            { id: 1, name: 'Google', type: 'company', count: 4, description: '4 candidates curated for Google' },
+            { id: 2, name: 'Microsoft', type: 'company', count: 3, description: '3 candidates curated for Microsoft' },
+            { id: 3, name: 'Chick-Fil-A', type: 'company', count: 5, description: '5 candidates curated for Chick-Fil-A' },
+            { id: 4, name: 'Capital One', type: 'company', count: 2, description: '2 candidates curated for Capital One' },
+            { id: 5, name: 'Copywriter', type: 'personal', count: 6, description: '6 copywriter profiles' },
+            { id: 6, name: 'Designers', type: 'personal', count: 7, description: '7 designer profiles' }
+        ];
+
+        const profilesByList = {
+            1: [
+                { id: 1, name: 'Rebecca Paradis', email: 'rebecca.d.paradis@gmail.com', location: 'Atlanta, GA', title: 'Senior Manager, Marketing Operations', match: 87, source: 'Smart Recruiter' },
+                { id: 2, name: 'Michael Chen', email: 'michael.chen@email.com', location: 'San Francisco, CA', title: 'Product Manager, Data Analytics', match: 92, source: 'LinkedIn' },
+                { id: 3, name: 'Diana Foster', email: 'diana.foster@email.com', location: 'New York, NY', title: 'Director of BI & Analytics', match: 78, source: 'Smart Recruiter' },
+                { id: 4, name: 'James Rodriguez', email: 'james.rodriguez@email.com', location: 'Seattle, WA', title: 'Analytics Engineer', match: 85, source: 'LinkedIn' }
+            ],
+            2: [
+                { id: 5, name: 'Sarah Kim', email: 'sarah.kim@email.com', location: 'Redmond, WA', title: 'Senior Data Analyst', match: 91, source: 'Smart Recruiter' },
+                { id: 6, name: 'Alex Johnson', email: 'alex.johnson@email.com', location: 'Boston, MA', title: 'Business Intelligence Manager', match: 88, source: 'LinkedIn' },
+                { id: 7, name: 'Emma Wilson', email: 'emma.wilson@email.com', location: 'Seattle, WA', title: 'Data Scientist', match: 79, source: 'Smart Recruiter' }
+            ],
+            3: [
+                { id: 8, name: 'Chris Thompson', email: 'chris.thompson@email.com', location: 'Atlanta, GA', title: 'Operations Manager', match: 89, source: 'LinkedIn' },
+                { id: 9, name: 'Lauren Davis', email: 'lauren.davis@email.com', location: 'Charlotte, NC', title: 'Marketing Director', match: 84, source: 'Smart Recruiter' },
+                { id: 10, name: 'Mark Lee', email: 'mark.lee@email.com', location: 'Dallas, TX', title: 'Regional Sales Manager', match: 76, source: 'LinkedIn' },
+                { id: 11, name: 'Nicole Brown', email: 'nicole.brown@email.com', location: 'Nashville, TN', title: 'Human Resources Manager', match: 82, source: 'Smart Recruiter' },
+                { id: 12, name: 'Ryan Clark', email: 'ryan.clark@email.com', location: 'Austin, TX', title: 'Finance Analyst', match: 80, source: 'LinkedIn' }
+            ],
+            4: [
+                { id: 13, name: 'Jessica Martinez', email: 'jessica.martinez@email.com', location: 'Richmond, VA', title: 'Risk Management Specialist', match: 90, source: 'Smart Recruiter' },
+                { id: 14, name: 'David Anderson', email: 'david.anderson@email.com', location: 'Arlington, VA', title: 'Investment Analyst', match: 85, source: 'LinkedIn' }
+            ],
+            5: [
+                { id: 15, name: 'Sophie Green', email: 'sophie.green@email.com', location: 'Los Angeles, CA', title: 'Content Writer', match: 88, source: 'Smart Recruiter' },
+                { id: 16, name: 'Tom Harris', email: 'tom.harris@email.com', location: 'New York, NY', title: 'Copywriter', match: 92, source: 'LinkedIn' },
+                { id: 17, name: 'Rachel White', email: 'rachel.white@email.com', location: 'San Francisco, CA', title: 'Technical Writer', match: 86, source: 'Smart Recruiter' },
+                { id: 18, name: 'Kevin Martin', email: 'kevin.martin@email.com', location: 'Chicago, IL', title: 'UX Writer', match: 81, source: 'LinkedIn' },
+                { id: 19, name: 'Amanda Lee', email: 'amanda.lee@email.com', location: 'Portland, OR', title: 'Marketing Copywriter', match: 87, source: 'Smart Recruiter' },
+                { id: 20, name: 'Brian Taylor', email: 'brian.taylor@email.com', location: 'Austin, TX', title: 'Content Strategist', match: 84, source: 'LinkedIn' }
+            ],
+            6: [
+                { id: 21, name: 'Lisa Wong', email: 'lisa.wong@email.com', location: 'San Francisco, CA', title: 'Product Designer', match: 93, source: 'Smart Recruiter' },
+                { id: 22, name: 'Marcus Johnson', email: 'marcus.johnson@email.com', location: 'New York, NY', title: 'UX/UI Designer', match: 89, source: 'LinkedIn' },
+                { id: 23, name: 'Emily Davis', email: 'emily.davis@email.com', location: 'Los Angeles, CA', title: 'Visual Designer', match: 86, source: 'Smart Recruiter' },
+                { id: 24, name: 'Patrick Chen', email: 'patrick.chen@email.com', location: 'Seattle, WA', title: 'Interaction Designer', match: 91, source: 'LinkedIn' },
+                { id: 25, name: 'Victoria Patel', email: 'victoria.patel@email.com', location: 'Austin, TX', title: 'Graphic Designer', match: 83, source: 'Smart Recruiter' },
+                { id: 26, name: 'Jason Moore', email: 'jason.moore@email.com', location: 'Portland, OR', title: 'Web Designer', match: 87, source: 'LinkedIn' },
+                { id: 27, name: 'Stephanie Garcia', email: 'stephanie.garcia@email.com', location: 'Denver, CO', title: 'Design Lead', match: 85, source: 'Smart Recruiter' }
+            ]
+        };
+
+        const teamMembers = [
+            { name: 'Katie Chen', email: 'katie.chen@wearesrosie.com' },
+            { name: 'Harry Lee', email: 'harry.lee@wearesrosie.com' },
+            { name: 'Sarah Martinez', email: 'sarah.martinez@wearesrosie.com' },
+            { name: 'James Wilson', email: 'james.wilson@wearesrosie.com' }
+        ];
+
+        let currentListId = null;
+        let selectedProfiles = new Set();
+        let selectedTags = [];
+        // Messages are stored per list: { listId: [...messages] }
+        const messagesByList = {};
+
+        function getMessages(listId) {
+            if (!messagesByList[listId]) {
+                messagesByList[listId] = [];
+            }
+            return messagesByList[listId];
+        }
+
+        // Render lists
+        function renderLists() {
+            const companyList = document.getElementById('companyLists');
+            const personalList = document.getElementById('personalLists');
+
+            companyList.innerHTML = listsData
+                .filter(l => l.type === 'company')
+                .map(list => `
+                    <div class="list-item group px-4 py-4 rounded-lg cursor-pointer hover:bg-gray-100 transition-colors flex items-center justify-between ${currentListId === list.id ? 'active' : ''}" data-list-id="${list.id}">
+                        <div class="flex-1 text-left flex items-center min-w-0">
+                            <div class="list-indicator company"></div>
+                            <div class="min-w-0">
+                                <div class="list-name font-medium text-gray-900">${list.name}</div>
+                                <div class="list-count text-xs text-gray-600">${list.count} candidate${list.count !== 1 ? 's' : ''}</div>
+                                <div class="list-type text-xs text-gray-500 mt-1">
+                                    <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs">Company</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="delete-list p-1 text-gray-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-all flex-shrink-0 ml-2" data-list-id="${list.id}">
+                            🗑️
+                        </button>
+                    </div>
+                `).join('');
+
+            personalList.innerHTML = listsData
+                .filter(l => l.type === 'personal')
+                .map(list => `
+                    <div class="list-item group px-4 py-4 rounded-lg cursor-pointer hover:bg-gray-100 transition-colors flex items-center justify-between ${currentListId === list.id ? 'active' : ''}" data-list-id="${list.id}">
+                        <div class="flex-1 text-left flex items-center min-w-0">
+                            <div class="list-indicator personal"></div>
+                            <div class="min-w-0">
+                                <div class="list-name font-medium text-gray-900">${list.name}</div>
+                                <div class="list-count text-xs text-gray-600">${list.count} candidate${list.count !== 1 ? 's' : ''}</div>
+                                <div class="list-type text-xs text-gray-500 mt-1">
+                                    <span class="bg-purple-100 text-purple-700 px-2 py-0.5 rounded text-xs">Personal</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="delete-list p-1 text-gray-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-all flex-shrink-0 ml-2" data-list-id="${list.id}">
+                            🗑️
+                        </button>
+                    </div>
+                `).join('');
+
+            // Add event listeners
+            document.querySelectorAll('.list-item').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    if (!e.target.classList.contains('delete-list')) {
+                        const listId = parseInt(item.dataset.listId);
+                        if (currentListId === listId) {
+                            // Deselect if clicking the same list
+                            deselectList();
+                        } else {
+                            selectList(listId);
+                        }
+                    }
+                });
+            });
+
+            // Add delete button functionality
+            document.querySelectorAll('.delete-list').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const listId = parseInt(e.currentTarget.dataset.listId);
+                    deleteList(listId);
+                });
+            });
+        }
+
+        function selectList(listId) {
+            currentListId = listId;
+            selectedProfiles.clear();
+            const list = listsData.find(l => l.id === listId);
+
+            document.getElementById('listTitle').textContent = list.name;
+            document.getElementById('listDescription').textContent = list.description;
+            document.getElementById('emptyState').style.display = 'none';
+            document.getElementById('profilesSection').style.display = 'block';
+            document.getElementById('rightSidebar').style.display = 'flex';
+            document.getElementById('exportBtn').style.display = 'flex';
+            document.getElementById('deleteListBtn').style.display = 'block';
+
+            // Show appropriate button based on list type
+            if (list.type === 'company') {
+                document.getElementById('companySubmissionBar').style.display = 'block';
+                document.getElementById('personalAddBar').style.display = 'none';
+            } else {
+                document.getElementById('companySubmissionBar').style.display = 'none';
+                document.getElementById('personalAddBar').style.display = 'block';
+            }
+
+            renderLists();
+            renderProfiles();
+            renderMessages();
+            updateSelectionCount();
+        }
+
+        function deselectList() {
+            currentListId = null;
+            selectedProfiles.clear();
+            
+            document.getElementById('listTitle').textContent = 'Select a list';
+            document.getElementById('listDescription').textContent = 'Choose a list from the sidebar to view profiles';
+            document.getElementById('emptyState').style.display = 'flex';
+            document.getElementById('profilesSection').style.display = 'none';
+            document.getElementById('rightSidebar').style.display = 'none';
+            document.getElementById('exportBtn').style.display = 'none';
+            document.getElementById('deleteListBtn').style.display = 'none';
+
+            renderLists();
+        }
+
+        function deleteList(listId) {
+            if (confirm('Are you sure you want to delete this list?')) {
+                const index = listsData.findIndex(l => l.id === listId);
+                if (index > -1) {
+                    listsData.splice(index, 1);
+                    if (currentListId === listId) {
+                        currentListId = null;
+                        selectedProfiles.clear();
+                        document.getElementById('emptyState').style.display = 'flex';
+                        document.getElementById('profilesSection').style.display = 'none';
+                        document.getElementById('rightSidebar').style.display = 'none';
+                    }
+                    renderLists();
+                }
+            }
+        }
+
+        function renderProfiles() {
+            const list = document.getElementById('profilesList');
+            const profiles = profilesByList[currentListId] || [];
+
+            list.innerHTML = profiles.map(profile => `
+                <div class="profile-card p-6 border border-gray-200 rounded-lg cursor-pointer transition-colors ${selectedProfiles.has(profile.id) ? 'bg-blue-50 border-blue-300' : 'hover:border-gray-300'}">
+                    <div class="flex gap-4">
+                        <input type="checkbox" class="profile-checkbox w-5 h-5 rounded cursor-pointer accent-blue-500 mt-1" data-id="${profile.id}" ${selectedProfiles.has(profile.id) ? 'checked' : ''}>
+                        <div class="flex-1">
+                            <div class="flex items-start justify-between gap-4 mb-2">
+                                <h3 class="font-semibold text-gray-900 text-lg">${profile.name}</h3>
+                                <span class="text-blue-600 font-semibold whitespace-nowrap">${profile.match}% Match</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-1">📧 ${profile.email}</p>
+                            <p class="text-sm text-gray-700 mb-2">💼 ${profile.title}</p>
+                            <p class="text-sm text-gray-600 mb-2">📍 ${profile.location}</p>
+                            <p class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded inline-block">${profile.source}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            document.querySelectorAll('.profile-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    if (e.target.type !== 'checkbox') {
+                        const checkbox = card.querySelector('.profile-checkbox');
+                        checkbox.checked = !checkbox.checked;
+                        toggleProfile(checkbox.dataset.id);
+                    }
+                });
+            });
+
+            document.querySelectorAll('.profile-checkbox').forEach(checkbox => {
+                checkbox.addEventListener('change', (e) => {
+                    toggleProfile(e.target.dataset.id);
+                });
+            });
+
+            updateProfileCount();
+        }
+
+        function toggleProfile(id) {
+            const idNum = parseInt(id);
+            if (selectedProfiles.has(idNum)) {
+                selectedProfiles.delete(idNum);
+            } else {
+                selectedProfiles.add(idNum);
+            }
+            document.getElementById('selectAllCheckbox').checked = false;
+            renderProfiles();
+            updateSelectionCount();
+        }
+
+        function updateSelectionCount() {
+            const list = listsData.find(l => l.id === currentListId);
+            const count = selectedProfiles.size;
+            
+            if (list && list.type === 'company') {
+                document.getElementById('selectionCount').textContent = `${count} profile${count !== 1 ? 's' : ''} selected`;
+                document.getElementById('submissionBtn').disabled = count === 0;
+            } else if (list && list.type === 'personal') {
+                document.getElementById('personalSelectionCount').textContent = `${count} profile${count !== 1 ? 's' : ''} selected`;
+                document.getElementById('addToCompanyBtn').disabled = count === 0;
+            }
+        }
+
+        function updateProfileCount() {
+            const profiles = profilesByList[currentListId] || [];
+            const selected = selectedProfiles.size;
+            const total = profiles.length;
+            document.getElementById('profileCount').textContent = `${selected} of ${total}`;
+        }
+
+        document.getElementById('selectAllCheckbox').addEventListener('change', (e) => {
+            const profiles = profilesByList[currentListId] || [];
+            if (e.target.checked) {
+                profiles.forEach(p => selectedProfiles.add(p.id));
+            } else {
+                selectedProfiles.clear();
+            }
+            renderProfiles();
+            updateSelectionCount();
+        });
+
+        function renderMessages() {
+            const container = document.getElementById('messageContainer');
+            const messages = getMessages(currentListId);
+            container.innerHTML = messages.map(msg => `
+                <div class="message-bubble flex gap-2">
+                    <div class="${msg.color} w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-semibold flex-shrink-0">
+                        ${msg.avatar}
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="font-medium text-sm text-gray-900">${msg.author}</span>
+                            <span class="text-xs text-gray-500">${msg.timestamp}</span>
+                        </div>
+                        <p class="text-sm text-gray-700 leading-relaxed break-words">${msg.content}</p>
+                    </div>
+                </div>
+            `).join('');
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function renderTags() {
+            const container = document.getElementById('tagContainer');
+            if (selectedTags.length === 0) {
+                container.innerHTML = '';
+                return;
+            }
+            container.innerHTML = selectedTags.map(tag => `
+                <div class="flex items-center gap-1 bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">
+                    <span>@${tag.name}</span>
+                    <button class="tag-remove hover:bg-blue-200 rounded p-0.5" data-email="${tag.email}">✕</button>
+                </div>
+            `).join('');
+
+            document.querySelectorAll('.tag-remove').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    selectedTags = selectedTags.filter(t => t.email !== e.target.dataset.email);
+                    renderTags();
+                });
+            });
+        }
+
+        function addMessage() {
+            const input = document.getElementById('messageInput');
+            const text = input.value.trim();
+
+            if (text) {
+                const taggedNames = selectedTags.map(t => `@${t.name}`).join(' ');
+                const fullMessage = taggedNames ? `${taggedNames} ${text}` : text;
+
+                const listMessages = getMessages(currentListId);
+                listMessages.push({
+                    id: listMessages.length + 1,
+                    author: 'You',
+                    avatar: 'AM',
+                    content: fullMessage,
+                    timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                    color: 'bg-purple-500'
+                });
+
+                input.value = '';
+                selectedTags = [];
+                renderTags();
+                renderMessages();
+            }
+        }
+
+        function renderSuggestions(search) {
+            const filtered = teamMembers.filter(m =>
+                m.name.toLowerCase().includes(search.toLowerCase()) ||
+                m.email.toLowerCase().includes(search.toLowerCase())
+            );
+
+            const list = document.getElementById('suggestionsList');
+            list.innerHTML = filtered.map(member => `
+                <button class="suggestion w-full text-left px-3 py-2 hover:bg-gray-100 rounded text-sm" data-name="${member.name}" data-email="${member.email}">
+                    <div class="font-medium">${member.name}</div>
+                    <div class="text-xs text-gray-500">${member.email}</div>
+                </button>
+            `).join('');
+
+            document.querySelectorAll('.suggestion').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const name = e.currentTarget.dataset.name;
+                    const email = e.currentTarget.dataset.email;
+
+                    if (!selectedTags.find(t => t.email === email)) {
+                        selectedTags.push({ name, email });
+                    }
+
+                    document.getElementById('tagSuggestions').style.display = 'none';
+                    document.getElementById('messageInput').value = '';
+                    document.getElementById('tagSearch').value = '';
+                    renderTags();
+                });
+            });
+        }
+
+        // Event listeners
+        document.getElementById('sendBtn').addEventListener('click', addMessage);
+        document.getElementById('messageInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') addMessage();
+            if (e.target.value.endsWith('@')) {
+                document.getElementById('tagSuggestions').style.display = 'block';
+                document.getElementById('tagSearch').focus();
+                renderSuggestions('');
+            }
+        });
+
+        document.getElementById('tagSearch').addEventListener('input', (e) => {
+            const search = e.target.value.replace('@', '');
+            renderSuggestions(search);
+        });
+
+        document.getElementById('submissionBtn').addEventListener('click', () => {
+            const modal = document.getElementById('submissionModal');
+            const selectedList = document.getElementById('submissionList');
+            const list = listsData.find(l => l.id === currentListId);
+            const profiles = (profilesByList[currentListId] || []).filter(p => selectedProfiles.has(p.id));
+
+            document.getElementById('submissionModalText').textContent = `Submit ${profiles.length} candidate${profiles.length !== 1 ? 's' : ''} from "${list.name}" to Talent Submission Platform`;
+
+            selectedList.innerHTML = profiles.map(p => `
+                <div class="flex items-center gap-2 text-sm text-gray-700">
+                    <span style="color: #16a34a;">✓</span>
+                    <div>
+                        <div class="font-medium">${p.name}</div>
+                        <div class="text-xs text-gray-500">${p.title}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            modal.style.display = 'flex';
+        });
+
+        document.getElementById('confirmSubmissionBtn').addEventListener('click', () => {
+            document.getElementById('submissionModal').style.display = 'none';
+            selectedProfiles.clear();
+            updateSelectionCount();
+            document.getElementById('selectAllCheckbox').checked = false;
+            renderProfiles();
+            alert('✓ Candidates submitted to Talent Submission Platform!');
+        });
+
+        document.getElementById('cancelSubmissionBtn').addEventListener('click', () => {
+            document.getElementById('submissionModal').style.display = 'none';
+        });
+
+        document.getElementById('addToCompanyBtn').addEventListener('click', () => {
+            const modal = document.getElementById('addToCompanyModal');
+            const selectedList = document.getElementById('companyListOptions');
+            const list = listsData.find(l => l.id === currentListId);
+            const profiles = (profilesByList[currentListId] || []).filter(p => selectedProfiles.has(p.id));
+            let selectedCompanyList = null;
+
+            document.getElementById('addToCompanyModalText').textContent = `Select a company list to add ${profiles.length} profile${profiles.length !== 1 ? 's' : ''}`;
+
+            // Show all company lists as options
+            selectedList.innerHTML = listsData
+                .filter(l => l.type === 'company')
+                .map(companyList => `
+                    <button class="company-list-option w-full text-left p-4 border border-gray-200 rounded-lg hover:bg-blue-50 hover:border-blue-300 transition-colors" data-list-id="${companyList.id}">
+                        <div class="font-medium text-gray-900">${companyList.name}</div>
+                        <div class="text-xs text-gray-500">${companyList.count} existing candidate${companyList.count !== 1 ? 's' : ''}</div>
+                    </button>
+                `).join('');
+
+            // Add click handlers to company list options
+            document.querySelectorAll('.company-list-option').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    selectedCompanyList = parseInt(e.currentTarget.dataset.listId);
+                    document.querySelectorAll('.company-list-option').forEach(b => {
+                        b.classList.remove('bg-blue-50', 'border-blue-300');
+                    });
+                    e.currentTarget.classList.add('bg-blue-50', 'border-blue-300');
+                });
+            });
+
+            modal.style.display = 'flex';
+        });
+
+        document.getElementById('confirmAddBtn').addEventListener('click', () => {
+            const selectedCompanyList = document.querySelector('.company-list-option.bg-blue-50');
+            if (!selectedCompanyList) {
+                alert('Please select a company list');
+                return;
+            }
+
+            const targetListId = parseInt(selectedCompanyList.dataset.listId);
+            const profiles = (profilesByList[currentListId] || []).filter(p => selectedProfiles.has(p.id));
+
+            // Add profiles to selected company list
+            if (!profilesByList[targetListId]) {
+                profilesByList[targetListId] = [];
+            }
+            
+            profiles.forEach(profile => {
+                const exists = profilesByList[targetListId].some(p => p.id === profile.id);
+                if (!exists) {
+                    profilesByList[targetListId].push(profile);
+                }
+            });
+
+            // Update count
+            const targetList = listsData.find(l => l.id === targetListId);
+            targetList.count = profilesByList[targetListId].length;
+
+            document.getElementById('addToCompanyModal').style.display = 'none';
+            selectedProfiles.clear();
+            updateSelectionCount();
+            renderProfiles();
+            alert(`✓ ${profiles.length} profile${profiles.length !== 1 ? 's' : ''} added to ${targetList.name}!`);
+        });
+
+        document.getElementById('cancelAddBtn').addEventListener('click', () => {
+            document.getElementById('addToCompanyModal').style.display = 'none';
+        });
+
+        document.getElementById('createNewListBtn').addEventListener('click', () => {
+            const listName = prompt('Enter company list name:');
+            if (listName) {
+                const newListId = Math.max(...listsData.map(l => l.id)) + 1;
+                const profiles = (profilesByList[currentListId] || []).filter(p => selectedProfiles.has(p.id));
+                
+                listsData.push({
+                    id: newListId,
+                    name: listName,
+                    type: 'company',
+                    count: profiles.length,
+                    description: `${profiles.length} candidate${profiles.length !== 1 ? 's' : ''} for ${listName}`
+                });
+
+                profilesByList[newListId] = profiles;
+
+                document.getElementById('addToCompanyModal').style.display = 'none';
+                selectedProfiles.clear();
+                updateSelectionCount();
+                renderProfiles();
+                renderLists();
+                          alert("New list created!");
+            }
+        });
+
+        // Initialize
+        renderLists();
+    </script>
+</body>
+</html>
