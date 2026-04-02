@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escalation Outcomes — Preview</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+    <style>
+        :root {
+            --bg-primary: #0a0e17;
+            --bg-secondary: #121a2b;
+            --bg-card: #1a2438;
+            --bg-elevated: #232f47;
+            --supply-primary: #00d4aa;
+            --supply-secondary: #00f5c4;
+            --supply-muted: rgba(0, 212, 170, 0.15);
+            --demand-primary: #ff6b6b;
+            --demand-secondary: #ff8e8e;
+            --demand-muted: rgba(255, 107, 107, 0.15);
+            --text-primary: #ffffff;
+            --text-secondary: #a3b1c9;
+            --text-muted: #5a6a85;
+            --border: rgba(255, 255, 255, 0.06);
+            --accent-purple: #9d7bff;
+            --accent-blue: #4da6ff;
+            --accent-orange: #ffaa4d;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        /* ── Shared layout ───────────────────────────────────────── */
+        .container { max-width: 1600px; margin: 0 auto; padding: 32px 40px; }
+
+        /* Header bar (mock) */
+        .mock-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 40px;
+            padding-bottom: 0;
+        }
+        .mock-header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 4px; }
+        .mock-header p  { font-size: 14px; color: var(--text-muted); }
+
+        /* Tab nav (mock) */
+        .tab-navigation {
+            display: flex;
+            margin-bottom: 32px;
+            border-bottom: 1px solid var(--border);
+        }
+        .tab-button {
+            background: none; border: none;
+            color: var(--text-muted);
+            font-size: 15px; font-weight: 600;
+            padding: 14px 24px; cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px; transition: all 0.2s;
+        }
+        .tab-button.active { color: var(--supply-primary); border-bottom-color: var(--supply-primary); }
+
+        /* ── Cards ───────────────────────────────────────────────── */
+        .key-metrics {
+            display: grid;
+            grid-template-columns: auto 1fr 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 28px;
+            align-items: stretch;
+        }
+        .metric-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+        }
+        .metric-card.supply::before  { background: linear-gradient(90deg, var(--supply-primary), var(--supply-secondary)); }
+        .metric-card.demand::before  { background: linear-gradient(90deg, var(--demand-primary), var(--demand-secondary)); }
+        .metric-card.neutral::before { background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue)); }
+
+        .metric-label {
+            font-size: 12px; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 0.8px;
+            color: var(--text-muted); margin-bottom: 12px;
+        }
+        .metric-value {
+            font-family: 'Space Mono', monospace;
+            font-size: 36px; font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .metric-card.supply  .metric-value { color: var(--supply-primary); }
+        .metric-card.demand  .metric-value { color: var(--demand-primary); }
+        .metric-card.neutral .metric-value { color: var(--text-primary); }
+        .metric-sub { font-size: 12px; color: var(--text-muted); margin-top: 8px; font-weight: 500; }
+
+        /* ── Charts grid ─────────────────────────────────────────── */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+            margin-bottom: 28px;
+        }
+        .chart-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid var(--border);
+        }
+        .chart-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+        .chart-title  { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+        .chart-subtitle { font-size: 13px; color: var(--text-muted); }
+        .chart-container { position: relative; height: 280px; }
+
+        /* ── Time cards ──────────────────────────────────────────── */
+        .time-analysis {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+        .time-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+        .time-value { font-size: 36px; font-weight: 700; font-family: 'Space Mono', monospace; }
+        .time-unit  { font-size: 12px; color: var(--text-muted); text-transform: uppercase; margin: 4px 0; }
+        .time-label { font-size: 13px; color: var(--text-secondary); }
+
+        /* ── Escalation section (table) ──────────────────────────── */
+        .escalations-section {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid var(--border);
+            margin-bottom: 28px;
+        }
+        .escalation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .candidate-table { width: 100%; border-collapse: collapse; }
+        .candidate-table thead { background: var(--bg-secondary); }
+        .candidate-table th {
+            text-align: left; padding: 14px 20px;
+            font-size: 11px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.5px;
+            color: var(--text-muted);
+            border-bottom: 2px solid var(--border);
+        }
+        .candidate-table td {
+            padding: 14px 20px; font-size: 14px;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border);
+        }
+        .candidate-table tbody tr:hover { background: var(--bg-secondary); }
+        .candidate-linkedin {
+            color: var(--supply-primary); text-decoration: none;
+            font-weight: 600; font-size: 13px;
+        }
+        .date-cell {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px; color: var(--text-muted);
+        }
+
+        /* ── QTR toggle ──────────────────────────────────────────── */
+        .qtr-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 8px 20px;
+            font-size: 13px; font-weight: 700;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            transition: all 0.18s;
+        }
+        .qtr-btn:hover { color: var(--text-primary); border-color: rgba(255,255,255,0.18); }
+        .qtr-btn.active {
+            background: var(--supply-muted);
+            border-color: var(--supply-primary);
+            color: var(--supply-primary);
+        }
+
+        /* ── Filter buttons ──────────────────────────────────────── */
+        .filter-row { display: flex; gap: 8px; }
+        .eo-filter-btn {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 6px 14px;
+            font-size: 12px; font-weight: 600;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text-secondary);
+            transition: all 0.2s;
+        }
+        .eo-filter-btn.active { background: var(--bg-secondary); color: var(--text-primary); border-color: rgba(255,255,255,0.15); }
+        .eo-filter-btn.hired-btn  { color: var(--supply-primary); }
+        .eo-filter-btn.open-btn   { color: var(--demand-primary); }
+
+        /* ── Badge ───────────────────────────────────────────────── */
+        .outcome-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px; font-weight: 700;
+            display: inline-block;
+        }
+        .outcome-badge.hired      { background: rgba(0,212,170,0.15); color: var(--supply-primary); }
+        .outcome-badge.unresolved { background: rgba(255,107,107,0.15); color: var(--demand-primary); }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- Mock header -->
+    <div class="mock-header">
+        <div>
+            <h1>Supply &amp; Demand Analytics</h1>
+            <p>Talent Pipeline Intelligence Dashboard</p>
+        </div>
+    </div>
+
+    <!-- Mock tab nav -->
+    <div class="tab-navigation">
+        <button class="tab-button">Overview</button>
+        <button class="tab-button">Application Details</button>
+        <button class="tab-button active">Escalation Outcomes</button>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- ESCALATION OUTCOMES TAB                                    -->
+    <!-- ══════════════════════════════════════════════════════════ -->
+
+    <!-- QTR Toggles -->
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:24px">
+        <span style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted);margin-right:4px">Quarter</span>
+        <button class="qtr-btn active" id="qtrAll" onclick="setQtr('all',this)">All</button>
+        <button class="qtr-btn"        id="qtrQ1"  onclick="setQtr('Q1',this)">Q1</button>
+        <button class="qtr-btn"        id="qtrQ2"  onclick="setQtr('Q2',this)">Q2</button>
+        <button class="qtr-btn"        id="qtrQ3"  onclick="setQtr('Q3',this)">Q3</button>
+        <button class="qtr-btn"        id="qtrQ4"  onclick="setQtr('Q4',this)">Q4</button>
+    </div>
+
+    <!-- Hero row: ring + 3 stat cards -->
+    <section class="key-metrics">
+
+        <!-- Animated conversion ring -->
+        <div class="metric-card supply" style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 36px;min-width:230px">
+            <div class="metric-label" style="text-align:center;margin-bottom:16px">Escalation → Hire Rate</div>
+            <div style="position:relative;width:148px;height:148px">
+                <svg viewBox="0 0 148 148" width="148" height="148" style="transform:rotate(-90deg)">
+                    <circle cx="74" cy="74" r="62" fill="none" stroke="rgba(0,212,170,0.1)" stroke-width="11"/>
+                    <circle id="eoRing" cx="74" cy="74" r="62" fill="none"
+                            stroke="url(#eoGrad)" stroke-width="11"
+                            stroke-linecap="round"
+                            stroke-dasharray="389.6"
+                            stroke-dashoffset="389.6"
+                            style="transition:stroke-dashoffset 1.4s cubic-bezier(0.4,0,0.2,1)"/>
+                    <defs>
+                        <linearGradient id="eoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%"   stop-color="#00d4aa"/>
+                            <stop offset="100%" stop-color="#00f5c4"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none">
+                    <div id="eoRingPct" style="font-family:'Space Mono',monospace;font-size:30px;font-weight:700;color:var(--supply-primary)">63%</div>
+                    <div style="font-size:11px;color:var(--text-muted);margin-top:3px;letter-spacing:0.5px">hired</div>
+                </div>
+            </div>
+            <div id="eoRingSub" style="margin-top:16px;font-size:12px;color:var(--text-muted);text-align:center;line-height:1.6">
+                15 of 24 escalations<br>resulted in a hire
+            </div>
+        </div>
+
+        <div class="metric-card neutral">
+            <div class="metric-label">Completed Escalations</div>
+            <div class="metric-value" id="eoCardTotal">24</div>
+            <div class="metric-sub" id="eoCardTotalSub">All types · All quarters</div>
+        </div>
+        <div class="metric-card supply">
+            <div class="metric-label">Resulted in Hire</div>
+            <div class="metric-value" id="eoCardHired">15</div>
+            <div class="metric-sub">Matched to a placement</div>
+        </div>
+        <div class="metric-card demand">
+            <div class="metric-label">Completed · No Hire</div>
+            <div class="metric-value" id="eoCardCompleted">9</div>
+            <div class="metric-sub">Closed without placement</div>
+        </div>
+    </section>
+
+    <!-- Charts row -->
+    <section class="charts-grid">
+
+        <!-- Stacked bar: by type -->
+        <div class="chart-card">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">Conversion by Escalation Type</div>
+                    <div class="chart-subtitle">Hired (teal) vs Unresolved (red) per escalation category</div>
+                </div>
+            </div>
+            <div class="chart-container">
+                <canvas id="eoTypeChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Donut: overall split -->
+        <div class="chart-card">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">Overall Outcome Split</div>
+                    <div class="chart-subtitle">Proportion of completed escalations that resulted in a hire</div>
+                </div>
+            </div>
+            <div class="chart-container">
+                <canvas id="eoDonutChart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- Time cards -->
+    <section class="time-analysis">
+        <div class="time-card">
+            <div class="time-value" id="eoAvgHired" style="color:var(--supply-primary)">8.4</div>
+            <div class="time-unit">days open</div>
+            <div class="time-label">Avg. Days · Hired</div>
+        </div>
+        <div class="time-card">
+            <div class="time-value" id="eoAvgCompleted" style="color:var(--demand-primary)">22.1</div>
+            <div class="time-unit">days open</div>
+            <div class="time-label">Avg. Days · Completed</div>
+        </div>
+        <div class="time-card">
+            <div class="time-value" id="eoBestType" style="color:var(--accent-purple);font-size:22px;padding-top:6px">Capacity Support</div>
+            <div class="time-unit">highest hire rate</div>
+            <div class="time-label" id="eoBestRate">Best-converting Type · 71%</div>
+        </div>
+    </section>
+
+    <!-- Outcome detail table -->
+    <section class="escalations-section">
+        <div class="escalation-header">
+            <div>
+                <div class="chart-title">Escalation Outcome Detail</div>
+                <div class="chart-subtitle">Completed escalation records with hire outcome</div>
+            </div>
+            <div class="filter-row">
+                <button class="eo-filter-btn active"    onclick="setFilter('all',this)">All</button>
+                <button class="eo-filter-btn hired-btn" onclick="setFilter('hired',this)">Hired</button>
+                <button class="eo-filter-btn open-btn"  onclick="setFilter('completed',this)">Completed</button>
+            </div>
+        </div>
+        <div style="position:relative;margin-bottom:16px">
+            <svg style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text-muted);pointer-events:none" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <input id="eoSearch" type="text" placeholder="Search by opportunity, type, or reason…"
+                oninput="onEoSearch()"
+                style="width:100%;padding:11px 16px 11px 42px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color 0.2s"
+                onfocus="this.style.borderColor='var(--supply-primary)'"
+                onblur="this.style.borderColor='var(--border)'">
+            <div id="eoSearchCount" style="margin-top:8px;font-size:12px;color:var(--text-muted)"></div>
+        </div>
+        <div style="overflow-x:auto">
+            <table class="candidate-table">
+                <thead>
+                    <tr>
+                        <th>Created</th>
+                        <th>Opportunity</th>
+                        <th>Type</th>
+                        <th>Reason</th>
+                        <th>Days Open</th>
+                        <th>Outcome</th>
+                        <th>Link</th>
+                    </tr>
+                </thead>
+                <tbody id="eoTableBody"></tbody>
+            </table>
+        </div>
+    </section>
+
+</div>
+
+<script>
+Chart.register(ChartDataLabels);
+
+// ── Dummy data ────────────────────────────────────────────────────────────────
+var DUMMY = [
+    { created_date:'2026-01-05', opportunity:'Google LLC_Sr. Producer_3554_New',                        escalation_type:'Other',            type_reason:'No qualified candidates',      days_open:6,  outcome:'Hired'     },
+    { created_date:'2026-01-10', opportunity:'Google LLC_Design Director_3569_New',                     escalation_type:'Capacity Support',  type_reason:'Niche skill set required',     days_open:4,  outcome:'Hired'     },
+    { created_date:'2026-01-12', opportunity:'Google LLC_Video Editor / Content Creator_3567_New',      escalation_type:'Capacity Support',  type_reason:'Volume surge',                 days_open:31, outcome:'Completed' },
+    { created_date:'2026-01-15', opportunity:'Google LLC_Sr. Producer_3570_New',                        escalation_type:'Capacity Support',  type_reason:'Urgent backfill',              days_open:5,  outcome:'Hired'     },
+    { created_date:'2026-01-18', opportunity:"BJ's Restaurants_PMD Celebration TV_Art Director_3573",   escalation_type:'Talent Review',     type_reason:'Client dissatisfied w/ slate', days_open:27, outcome:'Completed' },
+    { created_date:'2026-01-22', opportunity:"BJ's Restaurants_Q1 Pizookie Campaigns_Copywriter_3572",  escalation_type:'Talent Review',     type_reason:'Quality bar not met',          days_open:9,  outcome:'Hired'     },
+    { created_date:'2026-01-28', opportunity:'Microsoft_Brand Campaign_Senior Writer_3581_New',         escalation_type:'Capacity Support',  type_reason:'Pipeline exhausted',           days_open:18, outcome:'Completed' },
+    { created_date:'2026-02-03', opportunity:'Microsoft_Digital Strategy_Content Lead_3584_New',        escalation_type:'Capacity Support',  type_reason:'Tight timeline',               days_open:7,  outcome:'Hired'     },
+    { created_date:'2026-02-06', opportunity:'Meta_Social Media Manager_3590_New',                      escalation_type:'Talent Review',     type_reason:'Mismatch on rate',             days_open:14, outcome:'Hired'     },
+    { created_date:'2026-02-09', opportunity:'Meta_Performance Marketing_3591_New',                     escalation_type:'Capacity Support',  type_reason:'Sourcing gap',                 days_open:22, outcome:'Completed' },
+    { created_date:'2026-02-14', opportunity:'Amazon_Creative Director_3598_New',                       escalation_type:'Capacity Support',  type_reason:'Urgent VP ask',                days_open:3,  outcome:'Hired'     },
+    { created_date:'2026-02-19', opportunity:'Amazon_UX Writer_3601_New',                               escalation_type:'Talent Review',     type_reason:'Low application volume',       days_open:11, outcome:'Hired'     },
+    { created_date:'2026-02-22', opportunity:'Walmart_Social Strategist_3605_New',                      escalation_type:'Other',             type_reason:'Roster gap',                   days_open:29, outcome:'Completed' },
+    { created_date:'2026-02-27', opportunity:'Walmart_Email Marketing Lead_3607_New',                   escalation_type:'Capacity Support',  type_reason:'Fast-track needed',            days_open:6,  outcome:'Hired'     },
+    { created_date:'2026-03-04', opportunity:'Nike_Brand Storyteller_3612_New',                         escalation_type:'Capacity Support',  type_reason:'Specialist required',          days_open:8,  outcome:'Hired'     },
+    { created_date:'2026-03-07', opportunity:'Nike_Motion Designer_3614_New',                           escalation_type:'Talent Review',     type_reason:'Client revised requirements',  days_open:33, outcome:'Completed' },
+    { created_date:'2026-03-11', opportunity:'Nike_Campaign Strategist_3616_New',                       escalation_type:'Capacity Support',  type_reason:'Backlog surge',                days_open:5,  outcome:'Hired'     },
+    { created_date:'2026-03-15', opportunity:'Disney_Script Writer_3620_New',                           escalation_type:'Capacity Support',  type_reason:'Unique IP knowledge needed',   days_open:10, outcome:'Hired'     },
+    { created_date:'2026-03-19', opportunity:'Disney_Art Director_3621_New',                            escalation_type:'Other',             type_reason:'No match in community',        days_open:25, outcome:'Completed' },
+    { created_date:'2026-03-22', opportunity:'Spotify_Podcast Producer_3627_New',                       escalation_type:'Talent Review',     type_reason:'High-profile role',            days_open:12, outcome:'Hired'     },
+    { created_date:'2026-03-26', opportunity:'Spotify_Audio Brand Strategist_3629_New',                 escalation_type:'Capacity Support',  type_reason:'Urgent request from client',   days_open:9,  outcome:'Hired'     },
+    { created_date:'2026-03-29', opportunity:'Apple_Retail Experience Writer_3634_New',                 escalation_type:'Talent Review',     type_reason:'Very narrow brief',            days_open:20, outcome:'Completed' },
+    { created_date:'2026-04-01', opportunity:'Apple_Developer Content Strategist_3636_New',             escalation_type:'Capacity Support',  type_reason:'Q2 ramp-up',                   days_open:2,  outcome:'Hired'     },
+    { created_date:'2026-04-02', opportunity:'Apple_Global Events Producer_3638_New',                   escalation_type:'Talent Review',     type_reason:'Executive visibility',         days_open:1,  outcome:'Hired'     },
+];
+
+// Quarter helper
+function getQtr(dateStr) {
+    var m = parseInt((dateStr || '').substring(5, 7), 10);
+    if (m <= 3) return 'Q1';
+    if (m <= 6) return 'Q2';
+    if (m <= 9) return 'Q3';
+    return 'Q4';
+}
+
+var currentQtr    = 'all';
+var currentFilter = 'all';
+var typeChartInst = null;
+var donutInst     = null;
+
+// ── QTR toggle ────────────────────────────────────────────────────────────────
+function setQtr(qtr, el) {
+    currentQtr = qtr;
+    document.querySelectorAll('.qtr-btn').forEach(function(b) { b.classList.remove('active'); });
+    el.classList.add('active');
+    currentFilter = 'all';
+    document.querySelectorAll('.eo-filter-btn').forEach(function(b) { b.classList.remove('active'); });
+    document.querySelectorAll('.eo-filter-btn')[0].classList.add('active');
+    var s = document.getElementById('eoSearch'); if (s) s.value = '';
+    refreshAll();
+}
+
+function filteredData() {
+    if (currentQtr === 'all') return DUMMY;
+    return DUMMY.filter(function(r) { return getQtr(r.created_date) === currentQtr; });
+}
+
+// ── Main refresh ──────────────────────────────────────────────────────────────
+function refreshAll() {
+    var data      = filteredData();
+    var total     = data.length;
+    var hired     = data.filter(function(r) { return r.outcome === 'Hired'; }).length;
+    var completed = total - hired;
+    var rate      = total > 0 ? Math.round((hired / total) * 100) : 0;
+
+    // Cards
+    document.getElementById('eoRingPct').textContent    = rate + '%';
+    document.getElementById('eoRingSub').innerHTML      = hired + ' of ' + total + ' escalations<br>resulted in a hire';
+    document.getElementById('eoCardTotal').textContent  = total;
+    document.getElementById('eoCardTotalSub').textContent =
+        'All types · ' + (currentQtr === 'all' ? 'All quarters' : currentQtr);
+    document.getElementById('eoCardHired').textContent     = hired;
+    document.getElementById('eoCardCompleted').textContent = completed;
+
+    // Ring animation
+    var circumference = 2 * Math.PI * 62;
+    var offset = circumference - (rate / 100) * circumference;
+    var ring = document.getElementById('eoRing');
+    ring.style.transition = 'none';
+    ring.style.strokeDashoffset = circumference;
+    setTimeout(function() {
+        ring.style.transition = 'stroke-dashoffset 1.4s cubic-bezier(0.4,0,0.2,1)';
+        ring.style.strokeDashoffset = offset;
+    }, 30);
+
+    // Avg days
+    var hDays = data.filter(function(r) { return r.outcome === 'Hired'; })
+                    .reduce(function(s,r) { return s + r.days_open; }, 0);
+    var cDays = data.filter(function(r) { return r.outcome === 'Completed'; })
+                    .reduce(function(s,r) { return s + r.days_open; }, 0);
+    document.getElementById('eoAvgHired').textContent     = hired     > 0 ? (hDays / hired).toFixed(1)     : '—';
+    document.getElementById('eoAvgCompleted').textContent = completed > 0 ? (cDays / completed).toFixed(1) : '—';
+
+    // Best type
+    var typeBuckets = {};
+    data.forEach(function(r) {
+        var t = r.escalation_type || 'Unknown';
+        if (!typeBuckets[t]) typeBuckets[t] = { hired: 0, completed: 0 };
+        if (r.outcome === 'Hired') typeBuckets[t].hired++;
+        else typeBuckets[t].completed++;
+    });
+    var bestType = '—', bestRate = -1;
+    Object.keys(typeBuckets).forEach(function(t) {
+        var b = typeBuckets[t], tot = b.hired + b.completed;
+        var r = tot > 0 ? b.hired / tot : 0;
+        if (r > bestRate) { bestRate = r; bestType = t; }
+    });
+    document.getElementById('eoBestType').textContent = total > 0 ? bestType : '—';
+    document.getElementById('eoBestRate').textContent = total > 0
+        ? 'Best-converting Type · ' + Math.round(bestRate * 100) + '%'
+        : 'No data for this quarter';
+
+    // Charts
+    updateTypeChart(typeBuckets);
+    updateDonut(hired, completed);
+
+    // Table
+    renderTable(currentFilter, data);
+}
+
+// ── Stacked bar chart ─────────────────────────────────────────────────────────
+function updateTypeChart(typeBuckets) {
+    var types     = Object.keys(typeBuckets).sort(function(a, b) {
+        return (typeBuckets[b].hired + typeBuckets[b].completed) -
+               (typeBuckets[a].hired + typeBuckets[a].completed);
+    });
+    var hiredData     = types.map(function(t) { return typeBuckets[t].hired; });
+    var completedData = types.map(function(t) { return typeBuckets[t].completed; });
+
+    if (typeChartInst) {
+        typeChartInst.data.labels              = types;
+        typeChartInst.data.datasets[0].data    = hiredData;
+        typeChartInst.data.datasets[1].data    = completedData;
+        typeChartInst.options.scales.y.max     = Math.max(14, Math.max.apply(null, types.map(function(t) {
+            return typeBuckets[t].hired + typeBuckets[t].completed;
+        })) + 2);
+        typeChartInst.update();
+        return;
+    }
+
+    typeChartInst = new Chart(document.getElementById('eoTypeChart'), {
+        type: 'bar',
+        data: {
+            labels: types,
+            datasets: [
+                {
+                    label: 'Hired',
+                    data: hiredData,
+                    backgroundColor: '#00d4aa',
+                    borderRadius: 4, borderSkipped: false
+                },
+                {
+                    label: 'Completed',
+                    data: completedData,
+                    backgroundColor: 'rgba(255,107,107,0.85)',
+                    borderRadius: 4, borderSkipped: false
+                }
+            ]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            scales: {
+                x: {
+                    stacked: true,
+                    ticks: { color: '#5a6a85', font: { family: 'DM Sans', size: 13 } },
+                    grid:  { color: 'rgba(255,255,255,0.04)' }
+                },
+                y: {
+                    stacked: true,
+                    ticks: { color: '#5a6a85', precision: 0, font: { family: 'DM Sans' } },
+                    grid:  { color: 'rgba(255,255,255,0.04)' },
+                    max: 18
+                }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#a3b1c9', font: { family: 'DM Sans', size: 13 },
+                        usePointStyle: true, pointStyle: 'circle', padding: 20
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        footer: function(items) {
+                            var tot = items.reduce(function(s,i) { return s + i.parsed.y; }, 0);
+                            var h   = items.find(function(i) { return i.dataset.label === 'Hired'; });
+                            var r   = h && tot > 0 ? Math.round((h.parsed.y / tot) * 100) : 0;
+                            return 'Total: ' + tot + ' · ' + r + '% hired';
+                        }
+                    }
+                },
+                datalabels: {
+                    color: '#fff',
+                    font: { family: 'DM Sans', size: 12, weight: '700' },
+                    formatter: function(v) { return v > 0 ? v : ''; }
+                }
+            }
+        }
+    });
+}
+
+// ── Donut ─────────────────────────────────────────────────────────────────────
+var eoCenterPlugin = {
+    id: 'eoCenter',
+    afterDraw: function(chart) {
+        var d = chart.data.datasets[0].data, tot = d[0] + d[1];
+        if (!tot) return;
+        var pct = Math.round((d[0] / tot) * 100);
+        var ctx = chart.ctx;
+        var cx  = (chart.chartArea.left + chart.chartArea.right)  / 2;
+        var cy  = (chart.chartArea.top  + chart.chartArea.bottom) / 2;
+        ctx.save();
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.font = "bold 30px 'Space Mono', monospace";
+        ctx.fillStyle = '#00d4aa';
+        ctx.fillText(pct + '%', cx, cy - 12);
+        ctx.font = '14px DM Sans'; ctx.fillStyle = '#a3b1c9';
+        ctx.fillText('hired', cx, cy + 16);
+        ctx.restore();
+    }
+};
+
+function updateDonut(hired, completed) {
+    if (donutInst) {
+        donutInst.data.datasets[0].data = [hired, completed];
+        donutInst.update();
+        return;
+    }
+    donutInst = new Chart(document.getElementById('eoDonutChart'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Hired', 'Completed'],
+            datasets: [{ data: [hired, completed], backgroundColor: ['#00d4aa', 'rgba(255,107,107,0.85)'], borderWidth: 0 }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: { color: '#a3b1c9', font: { family: 'DM Sans', size: 13 }, padding: 24, usePointStyle: true, pointStyle: 'circle' }
+                },
+                datalabels: { display: false }
+            },
+            cutout: '68%'
+        },
+        plugins: [eoCenterPlugin]
+    });
+}
+
+function onEoSearch() { renderTable(currentFilter); }
+
+// ── Table ─────────────────────────────────────────────────────────────────────
+function renderTable(filter, data) {
+    var rows = data || filteredData();
+    if (filter === 'hired')     rows = rows.filter(function(r) { return r.outcome === 'Hired'; });
+    if (filter === 'completed') rows = rows.filter(function(r) { return r.outcome === 'Completed'; });
+
+    var q = (document.getElementById('eoSearch').value || '').toLowerCase().trim();
+    if (q) {
+        rows = rows.filter(function(r) {
+            return (r.opportunity     || '').toLowerCase().indexOf(q) >= 0 ||
+                   (r.escalation_type || '').toLowerCase().indexOf(q) >= 0 ||
+                   (r.type_reason     || '').toLowerCase().indexOf(q) >= 0 ||
+                   (r.outcome         || '').toLowerCase().indexOf(q) >= 0;
+        });
+    }
+
+    rows = rows.slice().sort(function(a, b) {
+        if (a.outcome !== b.outcome) return a.outcome === 'Completed' ? -1 : 1;
+        return b.days_open - a.days_open;
+    });
+
+    var total = filteredData().length;
+    var countEl = document.getElementById('eoSearchCount');
+    if (countEl) {
+        countEl.textContent = q
+            ? 'Found ' + rows.length + ' of ' + total + ' records'
+            : 'Showing ' + rows.length + ' records';
+    }
+
+    var html = rows.map(function(r) {
+        var isHired = r.outcome === 'Hired';
+        var daysCol = r.days_open > 14 ? 'var(--demand-primary)' : r.days_open > 7 ? 'var(--accent-orange)' : 'var(--text-secondary)';
+        return '<tr>' +
+            '<td class="date-cell">' + r.created_date + '</td>' +
+            '<td style="color:var(--text-primary);font-weight:600">' + r.opportunity + '</td>' +
+            '<td style="color:var(--accent-purple);font-weight:600">' + r.escalation_type + '</td>' +
+            '<td>' + r.type_reason + '</td>' +
+            '<td style="font-family:\'Space Mono\',monospace;font-weight:700;color:' + daysCol + '">' + r.days_open + 'd</td>' +
+            '<td><span class="outcome-badge ' + (isHired ? 'hired' : 'unresolved') + '">' + r.outcome + '</span></td>' +
+            '<td><a href="#" class="candidate-linkedin" onclick="return false">View</a></td>' +
+            '</tr>';
+    }).join('');
+
+    document.getElementById('eoTableBody').innerHTML = html ||
+        '<tr><td colspan="7" style="text-align:center;padding:48px;color:var(--text-muted)">No records match.</td></tr>';
+}
+
+function setFilter(filter, el) {
+    currentFilter = filter;
+    document.querySelectorAll('.eo-filter-btn').forEach(function(b) { b.classList.remove('active'); });
+    el.classList.add('active');
+    renderTable(filter);
+}
+
+// ── Boot ──────────────────────────────────────────────────────────────────────
+window.addEventListener('load', function() { refreshAll(); });
+</script>
+</body>
+</html>
