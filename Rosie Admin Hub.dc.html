@@ -1,0 +1,1697 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/we-are-rosie-design-system-019df9ad-757c-7217-89aa-ac02b342189e/colors_and_type.css">
+<script src="_ds/we-are-rosie-design-system-019df9ad-757c-7217-89aa-ac02b342189e/_ds_bundle.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+body{margin:0;background:#F5F6F8;color:#2D3748;font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;line-height:1.6}
+a{color:#EA3C1F;text-decoration:none}a:hover{color:#0F1419}
+input,select,button{font-family:inherit}
+@keyframes wrrpulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+image-slot::part(empty){opacity:0}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#F5F6F8">
+
+  <div style="background:#fff;position:sticky;top:0;z-index:200;border-bottom:1px solid #E2E8F0">
+    <div style="max-width:1440px;margin:0 auto;padding:0 40px;height:52px;display:flex;justify-content:space-between;align-items:center">
+      <div style="display:flex;align-items:center;gap:4px">
+        <span style="padding:6px 12px;font:600 12.5px/1.4 'DM Sans',sans-serif;color:#0F1419;border-radius:6px;cursor:pointer">Benches</span>
+        <span style="padding:6px 12px;font:500 12.5px/1.4 'DM Sans',sans-serif;color:#718096;border-radius:6px;cursor:pointer" style-hover="color:#2D3748;background:#F5F6F8">Opportunities</span>
+        <span style="padding:6px 12px;font:500 12.5px/1.4 'DM Sans',sans-serif;color:#718096;border-radius:6px;cursor:pointer" style-hover="color:#2D3748;background:#F5F6F8">Settings</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px">
+        <span style="display:flex;align-items:center;gap:6px;padding:4px 11px;background:rgba(234,60,31,.06);border:1px solid rgba(234,60,31,.15);color:#EA3C1F;border-radius:6px;font:700 10px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.08em"><span style="width:5px;height:5px;background:#EA3C1F;border-radius:50%;animation:wrrpulse 2s ease-in-out infinite"></span>Admin</span>
+        <span style="font:400 12.5px/1.4 'DM Sans',sans-serif;color:#718096">aisha@wearerosie.com</span>
+        <span style="width:30px;height:30px;border-radius:50%;background:#0F1419;color:#fff;display:flex;align-items:center;justify-content:center;font:700 10.5px/1 'DM Sans',sans-serif">AM</span>
+      </div>
+    </div>
+  </div>
+
+
+
+  <sc-if value="{{ isHub }}" hint-placeholder-val="{{ true }}">
+  <div>
+  <div style="background:#fff;border-bottom:1px solid #E2E8F0;position:relative">
+    <div style="padding:44px 0 28px;text-align:center">
+      <img src="assets/wrr-logo-black.png" alt="We Are Rosie" style="height:52px;width:auto;display:inline-block;margin-bottom:10px">
+      <div style="font:600 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.2em;color:#718096">Talent Submission Platform</div>
+    </div>
+
+    <div style="display:flex;justify-content:center;margin:0 auto 24px;max-width:500px">
+      <div style="flex:1;text-align:center;padding:12px 24px;border-right:1px solid #E2E8F0">
+        <div style="font:700 32px/1 'DM Sans',sans-serif;color:#3AC12F;margin-bottom:4px;font-variant-numeric:tabular-nums">{{ statBenches }}</div>
+        <div style="font:600 10px/1.4 'DM Sans',sans-serif;color:#718096;text-transform:uppercase;letter-spacing:.1em">Benches</div>
+      </div>
+      <div style="flex:1;text-align:center;padding:12px 24px;border-right:1px solid #E2E8F0">
+        <div style="font:700 32px/1 'DM Sans',sans-serif;color:#0F1419;margin-bottom:4px;font-variant-numeric:tabular-nums">{{ statTalent }}</div>
+        <div style="font:600 10px/1.4 'DM Sans',sans-serif;color:#718096;text-transform:uppercase;letter-spacing:.1em">Talent</div>
+      </div>
+      <div style="flex:1;text-align:center;padding:12px 24px">
+        <div style="font:700 32px/1 'DM Sans',sans-serif;color:#0F1419;margin-bottom:4px;font-variant-numeric:tabular-nums">{{ statShared }}</div>
+        <div style="font:600 10px/1.4 'DM Sans',sans-serif;color:#718096;text-transform:uppercase;letter-spacing:.1em">Shared</div>
+      </div>
+    </div>
+
+    <div style="border-top:1px solid #E2E8F0;background:#F5F6F8">
+      <div style="max-width:1440px;margin:0 auto;padding:14px 40px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+        <div style="flex:1;min-width:240px;position:relative">
+          <span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#718096;font-size:14px">⌕</span>
+          <input id="tour-search" placeholder="Search within your benches" style="width:100%;box-sizing:border-box;padding:10px 14px 10px 36px;border:1px solid #E2E8F0;border-radius:8px;font:400 13px/1.4 'DM Sans',sans-serif;background:#fff;color:#2D3748">
+        </div>
+        <div style="padding:10px 14px;border:1px solid #E2E8F0;border-radius:8px;font:400 12.5px/1.4 'DM Sans',sans-serif;background:#fff;color:#2D3748;cursor:pointer;display:flex;align-items:center;gap:8px">Most Recent <span style="color:#A0AAB8">▾</span></div>
+        <div id="tour-tabs" style="display:flex;gap:4px;flex-wrap:wrap">
+          <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="5">
+            <span onClick="{{ t.go }}" style="padding:6px 12px;border:1px solid {{ t.bd }};background:{{ t.bg }};color:{{ t.fg }};border-radius:6px;font:600 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.03em;cursor:pointer">{{ t.label }}</span>
+          </sc-for>
+        </div>
+        <span id="tour-new" style="padding:7px 14px;background:#0F1419;color:#fff;border-radius:8px;font:600 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.04em;cursor:pointer" style-hover="background:#EA3C1F">+ New bench</span>
+      </div>
+    </div>
+  </div>
+  <div style="height:3px;background:#0F1419"></div>
+
+  <div style="max-width:1440px;margin:0 auto;padding:32px 40px 80px">
+
+    <sc-if value="{{ ann }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#fff;border-radius:14px;padding:20px 24px;box-shadow:0 10px 30px rgba(0,0,0,.08);margin-bottom:28px;display:flex;flex-direction:column;gap:10px">
+        <div style="font:700 10.5px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.12em;color:#0F1419">Batch 1 — Bench Hub · TECH-3249</div>
+        <sc-for list="{{ notes }}" as="n" hint-placeholder-count="3">
+          <div style="display:flex;gap:10px;align-items:flex-start">
+            <span style="flex:0 0 auto;padding:4px 9px;background:rgba(234,60,31,.08);color:#EA3C1F;border-radius:20px;font:700 10px/1.4 'DM Sans',sans-serif">{{ n.id }}</span>
+            <span style="font:400 13px/1.6 'DM Sans',sans-serif;color:#718096">{{ n.text }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ empty }}" hint-placeholder-val="{{ false }}">
+      <div style="text-align:center;padding:64px 32px;max-width:420px;margin:0 auto">
+        <img src="assets/arrow-curve-right.png" alt="" style="width:72px;opacity:.3;transform:rotate(24deg);margin-bottom:16px">
+        <h3 style="margin:0 0 6px;font:600 18px/1.4 'DM Sans',sans-serif;color:#2D3748">No benches yet</h3>
+        <p style="margin:0;font:400 13.5px/1.6 'DM Sans',sans-serif;color:#718096">Create a company bench to start casting Rosies. Every bench inherits the template format and gets its own shareable client link.</p>
+        <span style="display:inline-block;margin-top:20px;padding:11px 20px;background:#EA3C1F;color:#fff;border-radius:10px;font:600 13px/1.4 'DM Sans',sans-serif;cursor:pointer">Create first bench</span>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ populated }}" hint-placeholder-val="{{ true }}">
+    <div>
+      <div style="font:700 10.5px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.12em;color:#718096;margin-bottom:12px;padding-left:4px">Company Benches</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px">
+        <sc-for list="{{ benches }}" as="b" hint-placeholder-count="6">
+          <div onClick="{{ b.open }}" style="position:relative;background:#fff;border-radius:14px;padding:24px;box-shadow:0 10px 30px rgba(0,0,0,.08);border:2px solid transparent;cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1)" style-hover="transform:translateY(-5px);box-shadow:0 20px 40px rgba(0,0,0,.14);border-color:#FECEE7">
+            <div style="position:absolute;top:16px;right:16px;z-index:5" data-no-nav="1">
+              <span onClick="{{ b.toggleMenu }}" style="display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border:1px solid {{ b.menuBd }};border-radius:6px;font:600 10.5px/1.4 'DM Sans',sans-serif;background:#fff;color:#2D3748;cursor:pointer">{{ b.status }} <span style="color:#A0AAB8">▾</span></span>
+              <sc-if value="{{ b.menuOpen }}" hint-placeholder-val="{{ false }}">
+                <div style="position:absolute;top:30px;right:0;width:150px;background:#fff;border:1px solid #E2E8F0;border-radius:10px;box-shadow:0 12px 28px rgba(0,0,0,.16);padding:5px;display:flex;flex-direction:column">
+                  <sc-for list="{{ b.options }}" as="o" hint-placeholder-count="4">
+                    <span onClick="{{ o.pick }}" style="display:flex;align-items:center;gap:8px;padding:7px 9px;border-radius:7px;font:500 12px/1.4 'DM Sans',sans-serif;color:{{ o.fg }};cursor:pointer" style-hover="background:#F5F6F8"><span style="width:6px;height:6px;border-radius:50%;background:{{ o.dot }}"></span>{{ o.label }}</span>
+                  </sc-for>
+                </div>
+              </sc-if>
+            </div>
+            <div style="display:flex;align-items:center;gap:16px;margin-bottom:18px;padding-right:96px">
+              <div style="width:56px;height:56px;flex-shrink:0;position:relative;border-radius:12px;background:#E2E5EA;overflow:hidden" data-no-nav="1">
+                <image-slot id="{{ b.logoId }}" shape="rounded" radius="12" placeholder=""></image-slot>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none">
+                  <rect x="3" y="3" width="18" height="18" rx="4" stroke="#5A6473" stroke-width="1.6"/>
+                  <path d="M12 15V8M12 8L9 11M12 8L15 11" stroke="#5A6473" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div style="flex:1;min-width:0">
+                <h3 style="margin:0;font:700 16.5px/1.35 'DM Sans',sans-serif;color:#0F1419">{{ b.name }}</h3>
+                <div style="margin-top:1px;font:400 11px/1.4 'DM Sans',sans-serif;color:#718096;white-space:nowrap">Updated {{ b.updated }}</div>
+              </div>
+            </div>
+
+            <span style="display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:20px;background:{{ b.badgeBg }};color:{{ b.badgeFg }};font:600 10.5px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.04em;transition:all .22s cubic-bezier(.2,.8,.2,1)"><span style="width:6px;height:6px;border-radius:50%;background:{{ b.dot }}"></span>{{ b.status }}</span>
+
+
+            <div style="display:flex;align-items:center;gap:16px;margin-top:16px;padding-top:16px;border-top:1px solid #E2E8F0">
+              <div style="display:flex;align-items:center;gap:6px">
+                <span style="font:700 18px/1 'DM Sans',sans-serif;color:#0F1419">{{ b.total }}</span>
+                <span style="font:400 10.5px/1.4 'DM Sans',sans-serif;color:#718096;text-transform:uppercase;letter-spacing:.03em">Total</span>
+              </div>
+              <span style="width:1px;height:22px;background:#E2E8F0"></span>
+              <div style="display:flex;align-items:center;gap:6px">
+                <span style="font:700 18px/1 'DM Sans',sans-serif;color:#3AC12F">{{ b.new }}</span>
+                <span style="font:400 10.5px/1.4 'DM Sans',sans-serif;color:#718096;text-transform:uppercase;letter-spacing:.03em">New</span>
+              </div>
+              <span style="width:1px;height:22px;background:#E2E8F0"></span>
+              <div style="display:flex;align-items:center;gap:6px">
+                <span style="font:700 18px/1 'DM Sans',sans-serif;color:#718096">{{ b.prev }}</span>
+                <span style="font:400 10.5px/1.4 'DM Sans',sans-serif;color:#718096;text-transform:uppercase;letter-spacing:.03em">Previous</span>
+              </div>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:16px">
+              <div style="display:flex;align-items:center;gap:7px;min-width:0">
+                <span style="font:600 15px/1 'Caveat',cursive;color:#8B95A5;transform:rotate(-4deg);white-space:nowrap;flex:0 0 auto">{{ b.linkNote }}</span>
+                <span onClick="{{ b.copy }}" title="Copy client link" style="display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:{{ b.linkBg }};color:{{ b.linkFg }};border:1px solid {{ b.linkBd }};border-radius:999px;cursor:{{ b.linkCursor }};font:700 10.5px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;transition:all .22s cubic-bezier(.2,.8,.2,1)" style-hover="box-shadow:2px 2px 0 #0F1419;transform:translate(-1px,-1px)">{{ b.linkLabel }}</span>
+              </div>
+              <div style="display:flex;gap:6px;flex:0 0 auto">
+              <span onClick="{{ b.askCopy }}" title="Duplicate" style="width:30px;height:30px;border-radius:8px;border:1px solid #E2E8F0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#718096;font-size:12px" style-hover="border-color:#FECEE7;color:#EA3C1F">⧉</span>
+              <span onClick="{{ b.askDelete }}" title="Delete" style="width:30px;height:30px;border-radius:8px;border:1px solid #E2E8F0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#718096;font-size:12px" style-hover="border-color:#FECEE7;color:#EA3C1F">🗑</span>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
+  </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isBench }}" hint-placeholder-val="{{ false }}">
+  <div>
+    <div style="background:#fff;border-bottom:1px solid #E2E8F0">
+      <div style="max-width:1440px;margin:0 auto;padding:0 40px;height:52px;display:flex;justify-content:space-between;align-items:center">
+        <div style="display:flex;align-items:center;gap:10px;min-width:0">
+          <img onClick="{{ goHub }}" src="assets/wrr-logo-black.png" alt="We Are Rosie" style="height:20px;width:auto;cursor:pointer">
+          <span style="width:1px;height:16px;background:#E2E8F0"></span>
+          <span style="font:700 12.5px/1.4 'DM Sans',sans-serif;color:#0F1419;text-transform:uppercase;letter-spacing:.06em">{{ benchName }}</span>
+          <span style="font:400 12.5px/1.4 'DM Sans',sans-serif;color:#8B95A5">Talent Directory</span>
+        </div>
+        <div style="display:inline-flex;border-radius:8px;overflow:hidden;border:1px solid #0F1419">
+          <span onClick="{{ setAdmin }}" style="padding:8px 14px;font:600 11.5px/1.4 'DM Sans',sans-serif;background:{{ adminBg }};color:{{ adminFg }};cursor:pointer">Admin view</span>
+          <span onClick="{{ setClient }}" style="padding:8px 14px;font:600 11.5px/1.4 'DM Sans',sans-serif;background:{{ clientBg }};color:{{ clientFg }};cursor:pointer">Client view</span>
+        </div>
+      </div>
+    </div>
+    <sc-if value="{{ isAdmin }}" hint-placeholder-val="{{ true }}">
+    <div style="display:flex;align-items:stretch;min-height:calc(100vh - 170px);background:#fff">
+      <div style="flex:0 0 250px;border-right:1px solid #E2E8F0">
+        <div style="background:#F5F6F8;padding:14px 26px;font:500 12px/1.4 'DM Sans',sans-serif;color:#5A6473">PAGES</div>
+        <div style="padding:14px 0">
+          <sc-for list="{{ pages }}" as="p" hint-placeholder-count="5">
+            <div onClick="{{ p.go }}" style="display:flex;align-items:center;gap:13px;padding:11px 26px;cursor:pointer;font:500 14px/1.4 'DM Sans',sans-serif;color:{{ p.fg }};background:{{ p.bg }}" style-hover="background:#FAFAFA">
+              <span style="width:17px;text-align:center;font-size:13px;color:{{ p.fg }}">{{ p.icon }}</span>{{ p.label }}
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="flex:1;min-width:0;padding:26px 34px 70px">
+        <sc-if value="{{ isOverviewPage }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <h1 style="margin:0 0 6px;font:700 25px/1.2 'DM Sans',sans-serif;color:#0F1419;text-transform:uppercase;letter-spacing:-.01em">{{ benchName }}</h1>
+          <p style="margin:0 0 28px;font:400 14px/1.5 'DM Sans',sans-serif;color:#718096">{{ benchSub }}</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;max-width:760px;margin-bottom:32px">
+            <div style="border:1px solid #E2E8F0;padding:20px">
+              <div style="font:700 30px/1 'DM Sans',sans-serif;color:#EA3C1F">{{ rosieTotal }}</div>
+              <div style="margin-top:8px;font:500 11px/1.4 'DM Sans',sans-serif;color:#718096;text-transform:uppercase;letter-spacing:.06em">Rosies on bench</div>
+            </div>
+            <div style="border:1px solid #E2E8F0;padding:20px">
+              <div style="font:700 30px/1 'DM Sans',sans-serif;color:#0F1419">0</div>
+              <div style="margin-top:8px;font:500 11px/1.4 'DM Sans',sans-serif;color:#718096;text-transform:uppercase;letter-spacing:.06em">Open opportunities</div>
+            </div>
+          </div>
+          <div onClick="{{ goToRosies }}" style="display:inline-flex;align-items:center;gap:10px;padding:13px 20px;background:#0F1419;color:#fff;font:600 12px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;cursor:pointer" style-hover="background:#EA3C1F">View Rosies →</div>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ isRosiesPage }}" hint-placeholder-val="{{ true }}">
+        <div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:22px">
+          <h1 style="margin:0;font:700 25px/1.2 'DM Sans',sans-serif;color:#0F1419;text-transform:uppercase;letter-spacing:-.01em">Rosies</h1>
+          <div style="display:flex;align-items:center;gap:10px">
+            <span onClick="{{ openNewProfile }}" style="padding:9px 16px;background:#0F1419;color:#fff;border-radius:8px;font:600 11.5px/1.4 'DM Sans',sans-serif;cursor:pointer" style-hover="background:#EA3C1F">+ Add Rosie</span>
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+          <div style="position:relative;width:250px">
+            <span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#A0AAB8;font-size:13px">⌕</span>
+            <input placeholder="Search within this bench" style="width:100%;box-sizing:border-box;height:40px;padding:0 12px 0 32px;border:1px solid #CBD2DB;border-radius:0;font:400 13px/1.4 'DM Sans',sans-serif;background:#fff">
+          </div>
+          <sc-for list="{{ filters }}" as="f" hint-placeholder-count="3">
+            <div style="position:relative">
+              <span onClick="{{ f.toggle }}" style="height:40px;display:inline-flex;align-items:center;gap:12px;padding:0 14px;border:1px solid {{ f.bd }};font:600 12px/1.4 'DM Sans',sans-serif;color:{{ f.fg }};text-transform:uppercase;letter-spacing:.04em;background:{{ f.flashBg }};cursor:pointer;transition:background .3s,border-color .3s">{{ f.label }} <span style="color:#A0AAB8">▾</span></span>
+              <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+                <div style="position:absolute;top:44px;left:0;z-index:25;min-width:190px;background:#fff;border:1px solid #E2E8F0;box-shadow:0 12px 28px rgba(0,0,0,.16);padding:5px;display:flex;flex-direction:column">
+                  <sc-for list="{{ f.options }}" as="o" hint-placeholder-count="4">
+                    <span onClick="{{ o.pick }}" style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 10px;font:500 12.5px/1.4 'DM Sans',sans-serif;color:{{ o.fg }};cursor:pointer;white-space:nowrap" style-hover="background:#F5F6F8">{{ o.label }} <span style="color:#EA3C1F">{{ o.tick }}</span></span>
+                  </sc-for>
+                </div>
+              </sc-if>
+            </div>
+          </sc-for>
+          <div style="position:relative">
+            <span onClick="{{ toggleGroupMenu }}" style="height:40px;display:inline-flex;align-items:center;gap:12px;padding:0 14px;border:1px solid {{ groupBd }};font:600 12px/1.4 'DM Sans',sans-serif;color:#0F1419;text-transform:uppercase;letter-spacing:.04em;background:#fff;cursor:pointer">Group by: {{ groupBy }} <span style="color:#A0AAB8">▾</span></span>
+            <sc-if value="{{ groupMenuOpen }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute;top:44px;left:0;z-index:20;width:170px;background:#fff;border:1px solid #E2E8F0;box-shadow:0 12px 28px rgba(0,0,0,.16);padding:5px;display:flex;flex-direction:column">
+                <sc-for list="{{ groupOptions }}" as="o" hint-placeholder-count="4">
+                  <span onClick="{{ o.pick }}" style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;font:500 12.5px/1.4 'DM Sans',sans-serif;color:{{ o.fg }};cursor:pointer" style-hover="background:#F5F6F8">{{ o.label }} <span style="color:#EA3C1F">{{ o.tick }}</span></span>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+          <sc-if value="{{ groupPickerShown }}" hint-placeholder-val="{{ false }}">
+            <div style="position:relative">
+              <span onClick="{{ toggleWhichMenu }}" style="height:40px;display:inline-flex;align-items:center;gap:12px;padding:0 14px;border:1px solid {{ whichBd }};font:600 12px/1.4 'DM Sans',sans-serif;color:#0F1419;text-transform:uppercase;letter-spacing:.04em;background:#fff;cursor:pointer">{{ whichGroup }} <span style="color:#A0AAB8">▾</span></span>
+              <sc-if value="{{ whichMenuOpen }}" hint-placeholder-val="{{ false }}">
+                <div style="position:absolute;top:44px;left:0;z-index:20;width:180px;background:#fff;border:1px solid #E2E8F0;box-shadow:0 12px 28px rgba(0,0,0,.16);padding:5px;display:flex;flex-direction:column">
+                  <sc-for list="{{ whichOptions }}" as="o" hint-placeholder-count="4">
+                    <span onClick="{{ o.pick }}" style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;font:500 12.5px/1.4 'DM Sans',sans-serif;color:{{ o.fg }};cursor:pointer" style-hover="background:#F5F6F8">{{ o.label }} <span style="color:#EA3C1F">{{ o.tick }}</span></span>
+                  </sc-for>
+                </div>
+              </sc-if>
+            </div>
+          </sc-if>
+        </div>
+        <p style="margin:10px 0 0;font:400 12px/1.5 'DM Sans',sans-serif;color:#8B95A5">{{ scopeNote }}</p>
+
+        <sc-if value="{{ ann }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:22px;border:1px solid #E2E8F0;border-radius:10px;padding:18px 20px;display:flex;flex-direction:column;gap:9px">
+            <div style="font:700 10.5px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.12em;color:#0F1419">Batch 2 — Rosie list · TECH-3249</div>
+            <sc-for list="{{ benchNotes }}" as="n" hint-placeholder-count="4">
+              <div style="display:flex;gap:10px;align-items:flex-start">
+                <span style="flex:0 0 auto;padding:3px 8px;background:rgba(234,60,31,.08);color:#EA3C1F;border-radius:4px;font:700 10px/1.4 'DM Sans',sans-serif">{{ n.id }}</span>
+                <span style="font:400 12.5px/1.6 'DM Sans',sans-serif;color:#718096">{{ n.text }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <div style="margin-top:24px;border:1px solid #E2E8F0;overflow-x:auto">
+          <div style="display:grid;grid-template-columns:minmax(150px,1.5fr) minmax(200px,2fr) minmax(130px,1.4fr) 70px minmax(110px,1.1fr) 70px 60px;gap:12px;padding:13px 18px;background:#F5F6F8;border-bottom:1px solid #E2E8F0;min-width:830px">
+            <sc-for list="{{ columns }}" as="c" hint-placeholder-count="7">
+              <span style="font:500 11.5px/1.4 'DM Sans',sans-serif;color:#5A6473;text-transform:uppercase;letter-spacing:.04em">{{ c.label }}</span>
+            </sc-for>
+          </div>
+          <sc-for list="{{ groups }}" as="g" hint-placeholder-count="1">
+            <div>
+              <sc-if value="{{ g.labelled }}" hint-placeholder-val="{{ false }}">
+                <div onClick="{{ g.toggle }}" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 18px;background:#FAFAFA;border-bottom:1px solid #EDF0F4;cursor:pointer" style-hover="background:#F1F3F6">
+                  <span style="font:700 10.5px/1.4 'DM Sans',sans-serif;color:#0F1419;text-transform:uppercase;letter-spacing:.08em">{{ g.name }}</span>
+                  <span style="display:flex;align-items:center;gap:14px">
+                    <span style="font:500 11px/1.4 'DM Sans',sans-serif;color:#8B95A5">{{ g.count }}</span>
+                    <span style="font-size:11px;color:#8B95A5">{{ g.chev }}</span>
+                  </span>
+                </div>
+              </sc-if>
+              <sc-for list="{{ g.rosies }}" as="r" hint-placeholder-count="4">
+                <div style="display:grid;grid-template-columns:minmax(150px,1.5fr) minmax(200px,2fr) minmax(130px,1.4fr) 70px minmax(110px,1.1fr) 70px 60px;gap:12px;align-items:center;padding:14px 18px;border-bottom:1px solid #EDF0F4;cursor:pointer;min-width:830px" style-hover="background:#FAFAFA">
+                  <span style="display:flex;align-items:center;gap:8px;min-width:0">
+                    <span title="{{ r.availability }}" style="width:7px;height:7px;border-radius:50%;background:{{ r.availDot }};flex:0 0 auto"></span>
+                    <span style="font:500 13.5px/1.4 'DM Sans',sans-serif;color:#0F1419;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.name }}</span>
+                    <sc-if value="{{ r.needsReview }}" hint-placeholder-val="{{ false }}">
+                      <span title="Needs review before sharing" style="flex:0 0 auto;color:#B7891F;font-size:11px">▲</span>
+                    </sc-if>
+                  </span>
+                  <span style="font:400 13.5px/1.4 'DM Sans',sans-serif;color:#2D3748;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.email }}</span>
+                  <span style="font:400 13.5px/1.4 'DM Sans',sans-serif;color:#2D3748;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.role }}</span>
+                  <span style="font:400 13px/1.4 'DM Sans',sans-serif;color:#003ACC">in</span>
+                  <span onClick="{{ r.toggleDept }}" style="display:inline-flex;align-items:center;gap:6px;padding:4px 9px;background:#F5F6F8;color:#2D3748;font:700 10.5px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap;cursor:pointer;border:1px solid transparent" style-hover="border-color:#CBD2DB">{{ r.dept }} <span style="color:#A0AAB8">▾</span></span>
+                  <sc-if value="{{ r.salaryCardShown }}" hint-placeholder-val="{{ true }}">
+                    <span><span style="padding:4px 9px;background:#EDF2FE;color:#003ACC;font:700 11px/1.4 'DM Sans',sans-serif;white-space:nowrap">{{ r.salary }}</span></span>
+                  </sc-if>
+                  <span onClick="{{ r.openProfile }}" style="font:600 11px/1.4 'DM Sans',sans-serif;color:#EA3C1F;text-transform:uppercase;letter-spacing:.05em;cursor:pointer">Edit</span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-for>
+          <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:44px 20px;text-align:center">
+              <div style="font:600 14px/1.4 'DM Sans',sans-serif;color:#2D3748">No Rosies match these filters</div>
+              <p style="margin:6px 0 0;font:400 12.5px/1.5 'DM Sans',sans-serif;color:#8B95A5">Try widening one of them, or start again.</p>
+              <span onClick="{{ clearFilters }}" style="display:inline-block;margin-top:16px;padding:9px 16px;border:1px solid #0F1419;font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;color:#0F1419;cursor:pointer" style-hover="background:#0F1419;color:#fff">Clear filters</span>
+            </div>
+          </sc-if>
+        </div>
+
+        <div style="display:flex;justify-content:flex-end;gap:6px;margin-top:16px">
+          <span style="width:32px;height:32px;border:1px solid #CBD2DB;display:flex;align-items:center;justify-content:center;color:#CBD2DB;font-size:12px">‹</span>
+          <span style="width:32px;height:32px;border:1px solid #0F1419;display:flex;align-items:center;justify-content:center;font:600 12px/1 'DM Sans',sans-serif">1</span>
+          <span style="width:32px;height:32px;border:1px solid #CBD2DB;display:flex;align-items:center;justify-content:center;color:#2D3748;font-size:12px;cursor:pointer">›</span>
+        </div>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ isProfilePage }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px;flex-wrap:wrap">
+            <div style="display:flex;align-items:center;gap:14px">
+              <span onClick="{{ backToRosies }}" style="cursor:pointer;font-size:18px">←</span>
+              <h1 style="margin:0;font:700 26px/1.2 'DM Sans',sans-serif;color:#0F1419;text-transform:uppercase;letter-spacing:-.01em">{{ profileName }}</h1>
+              <span style="padding:6px 10px;background:#EDF2FE;color:#003ACC;font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.04em">Departments 1</span>
+            </div>
+            <span style="padding:11px 18px;background:#0F1419;color:#fff;font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;cursor:pointer">Client view</span>
+          </div>
+          <sc-if value="{{ needsReview }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 18px;background:#FFF3CD;border:1px solid #E8B93E;margin-bottom:18px">
+              <div style="display:flex;align-items:center;gap:12px">
+                <span style="font-size:16px;color:#7A5B00">&#9888;</span>
+                <span style="font:400 13.5px/1.4 'DM Sans',sans-serif;color:#7A5B00">This profile needs review before sharing with a client. <a href="#" style="color:#7A5B00;text-decoration:underline">See what's missing &#8594;</a></span>
+              </div>
+              <span onClick="{{ dismissReview }}" style="cursor:pointer;color:#7A5B00">&#10005;</span>
+            </div>
+          </sc-if>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;background:#F5F6F8;border:1px solid #E2E8F0;padding:14px 18px;margin-bottom:20px">
+            <span style="font:400 12.5px/1.4 'DM Sans',sans-serif;color:#8B95A5;text-transform:uppercase;letter-spacing:.04em">Last changes 4 Sept 2026, 08:47</span>
+            <div style="display:flex;gap:10px">
+              <span onClick="{{ resetProfile }}" style="padding:11px 16px;border:1px solid #0F1419;font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;color:#0F1419;cursor:pointer">Reset changes</span>
+              <span style="padding:11px 16px;background:#0F1419;color:#fff;font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;cursor:pointer">Save</span>
+              <span style="padding:11px 16px;background:#0F1419;color:#fff;font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;cursor:pointer">Assign to opportunity</span>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:280px minmax(0,1fr);gap:20px;align-items:start">
+            <div>
+              <div style="background:#fff;border:1px solid #E2E8F0;padding:20px;margin-bottom:16px">
+                <div style="width:100%;aspect-ratio:1;background:#DADFE6;display:flex;align-items:center;justify-content:center;color:#fff;font-size:40px">🌿</div>
+                <div style="margin-top:14px;font:700 17px/1.2 'DM Sans',sans-serif;color:#0F1419;text-transform:uppercase;letter-spacing:.02em">{{ profileName }}</div>
+                <div style="display:flex;gap:16px;margin-top:12px;padding-top:12px;border-top:1px solid #EDF0F4">
+                  <span onClick="{{ togglePhoto }}" style="display:inline-flex;align-items:center;gap:5px;font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;color:#EA3C1F;cursor:pointer">{{ photoIcon }} {{ photoLabel }}</span>
+                  <span onClick="{{ toggleName }}" style="display:inline-flex;align-items:center;gap:5px;font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;color:#EA3C1F;cursor:pointer">{{ nameIcon }} {{ nameLabel }}</span>
+                </div>
+              </div>
+              <div style="background:#fff;border:1px solid #E2E8F0;padding:20px">
+                <div style="font:700 13px/1.4 'DM Sans',sans-serif;color:#0F1419;text-transform:uppercase;letter-spacing:.05em">Assigned to</div>
+                <p style="margin:12px 0 0;font:400 13.5px/1.4 'DM Sans',sans-serif;color:#8B95A5">No opportunities</p>
+              </div>
+            </div>
+            <div>
+
+          <div style="background:#fff;border:1px solid #E2E8F0;margin-bottom:16px">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 24px;background:{{ qaHeaderBg }}"><div style="display:flex;align-items:center;gap:10px"><sc-if value="{{ qaHidden }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px">🔒</span></sc-if><div style="font:700 15px/1.4 'DM Sans',sans-serif;color:#0F1419;text-transform:uppercase;letter-spacing:.04em">QA</div><sc-if value="{{ qaHidden }}" hint-placeholder-val="{{ false }}"><span style="padding:4px 8px;background:#FFF3CD;color:#7A5B00;border:1px solid #E8B93E;font:700 10px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.04em">Hidden from client</span></sc-if></div><div style="display:flex;align-items:center;gap:14px"><span onClick="{{ qaExpand }}" style="font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;color:#EA3C1F;cursor:pointer">Edit</span><span onClick="{{ qaEyeToggle }}" title="{{ qaEyeTitle }}" style="cursor:pointer;font-size:15px;color:{{ qaEyeColor }}">{{ qaEyeIcon }}</span><span onClick="{{ qaChevronToggle }}" style="cursor:pointer;color:#8B95A5;font-size:12px">{{ qaChevron }}</span></div></div>
+            <sc-if value="{{ qaOpen }}" hint-placeholder-val="{{ true }}">
+            <div style="padding:6px 24px 20px">
+            <sc-for list="{{ qaItems }}" as="i" hint-placeholder-count="2">
+              <div style="padding:14px 0;border-top:1px solid #EDF0F4">
+                <div style="font:700 15px/1.3 'DM Sans',sans-serif;color:{{ i.textFg }}">{{ i.title }}</div>
+                <sc-if value="{{ i.subtitle }}" hint-placeholder-val="{{ true }}">
+                  <div style="margin-top:2px;font:400 13px/1.4 'DM Sans',sans-serif;color:{{ i.mutedFg }}">{{ i.subtitle }}</div>
+                </sc-if>
+                <sc-if value="{{ i.dates }}" hint-placeholder-val="{{ true }}">
+                  <div style="margin-top:2px;font:400 12.5px/1.4 'DM Sans',sans-serif;color:{{ i.mutedFg }}">{{ i.dates }}</div>
+                </sc-if>
+                <sc-if value="{{ i.desc }}" hint-placeholder-val="{{ false }}">
+                  <p style="margin:10px 0 0;font:400 13.5px/1.6 'DM Sans',sans-serif;color:{{ i.mutedFg }}">{{ i.desc }}</p>
+                </sc-if>
+                <div style="display:flex;gap:18px;margin-top:12px"><span onClick="{{ i.toggleEdit }}" style="font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;color:#EA3C1F;cursor:pointer">Edit</span><span onClick="{{ i.toggleHide }}" style="display:inline-flex;align-items:center;gap:5px;font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;color:{{ i.hideFg }};cursor:pointer">{{ i.hideIcon }} {{ i.hideLabel }}</span><span onClick="{{ i.reset }}" style="font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;color:#EA3C1F;cursor:pointer">Reset</span><span onClick="{{ i.remove }}" style="font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;color:#EA3C1F;cursor:pointer">Remove</span></div>
+              </div>
+            </sc-for>
+            </div>
+            </sc-if>
+          </div>
+
+          <div style="background:#fff;border:1px solid #E2E8F0;margin-bottom:16px">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 24px;background:{{ rateHeaderBg }}">
+              <div style="display:flex;align-items:center;gap:10px">
+                <sc-if value="{{ rateHidden }}" hint-placeholder-val="{{ true }}"><span style="font-size:13px">&#128274;</span></sc-if>
+                <div style="font:700 15px/1.4 'DM Sans',sans-serif;color:#0F1419;text-transform:uppercase;letter-spacing:.04em">Rate</div>
+                <sc-if value="{{ rateHidden }}" hint-placeholder-val="{{ true }}"><span style="padding:4px 8px;background:#FFF3CD;color:#7A5B00;border:1px solid #E8B93E;font:700 10px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.04em">Hidden from client</span></sc-if>
+              </div>
+              <div style="display:flex;align-items:center;gap:16px">
+                <span onClick="{{ rateExpand }}" style="font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;color:#EA3C1F;cursor:pointer">Edit</span>
+                <span onClick="{{ rateEyeToggle }}" title="{{ rateEyeTitle }}" style="cursor:pointer;font-size:15px;color:{{ rateEyeColor }}">{{ rateEyeIcon }}</span>
+                <span onClick="{{ rateChevronToggle }}" style="cursor:pointer;color:#8B95A5;font-size:12px">{{ rateChevron }}</span>
+              </div>
+            </div>
+            <sc-if value="{{ rateOpen }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:20px 24px;border-top:1px solid #EDF0F4">
+                <div style="display:flex;align-items:stretch;max-width:280px">
+                  <span style="display:flex;align-items:center;padding:0 14px;height:48px;border:1px solid #0F1419;border-right:none;background:#F5F6F8;font:700 15px/1 'DM Sans',sans-serif;color:#0F1419">$</span>
+                  <input onInput="{{ setRateValue }}" value="{{ rateValue }}" placeholder="Enter client rate" style="flex:1;min-width:0;height:48px;box-sizing:border-box;padding:0 14px;border:1px solid #0F1419;font:400 15px/1.4 'DM Sans',sans-serif" />
+                </div>
+                <p style="margin:10px 0 0;font:400 12.5px/1.5 'DM Sans',sans-serif;color:#8B95A5">Entered manually by an admin. Never pulled from SmartRecruiters.</p>
+              </div>
+            </sc-if>
+          </div>
+
+          <div style="background:#fff;border:1px solid #E2E8F0;margin-bottom:16px">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 24px;background:{{ workHeaderBg }}"><div style="display:flex;align-items:center;gap:10px"><sc-if value="{{ workHidden }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px">🔒</span></sc-if><div style="font:700 15px/1.4 'DM Sans',sans-serif;color:#0F1419;text-transform:uppercase;letter-spacing:.04em">Work experience</div><sc-if value="{{ workHidden }}" hint-placeholder-val="{{ false }}"><span style="padding:4px 8px;background:#FFF3CD;color:#7A5B00;border:1px solid #E8B93E;font:700 10px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.04em">Hidden from client</span></sc-if></div><div style="display:flex;align-items:center;gap:14px"><span onClick="{{ workAdd }}" style="font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;color:#EA3C1F;cursor:pointer">+ Add</span><span onClick="{{ workExpand }}" style="font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;color:#EA3C1F;cursor:pointer">Edit</span><span onClick="{{ workEyeToggle }}" title="{{ workEyeTitle }}" style="cursor:pointer;font-size:15px;color:{{ workEyeColor }}">{{ workEyeIcon }}</span><span onClick="{{ workChevronToggle }}" style="cursor:pointer;color:#8B95A5;font-size:12px">{{ workChevron }}</span></div></div>
+            <sc-if value="{{ workOpen }}" hint-placeholder-val="{{ true }}">
+            <div style="padding:6px 24px 20px">
+            <sc-for list="{{ workItems }}" as="i" hint-placeholder-count="2">
+              <div style="padding:14px 0;border-top:1px solid #EDF0F4;border-left:3px solid {{ i.borderColor }};padding-left:12px">
+                <sc-if value="{{ i.editing }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-direction:column;gap:8px;max-width:520px">
+                    <input value="{{ i.title }}" onInput="{{ i.setTitle }}" placeholder="Job title" style="height:38px;padding:0 10px;border:1px solid #CBD2DB;font:400 13.5px/1.4 'DM Sans',sans-serif">
+                    <input value="{{ i.subtitle }}" onInput="{{ i.setSubtitle }}" placeholder="Company" style="height:38px;padding:0 10px;border:1px solid #CBD2DB;font:400 13.5px/1.4 'DM Sans',sans-serif">
+                    <input value="{{ i.dates }}" onInput="{{ i.setDates }}" placeholder="Dates" style="height:38px;padding:0 10px;border:1px solid #CBD2DB;font:400 13.5px/1.4 'DM Sans',sans-serif">
+                    <textarea onInput="{{ i.setDesc }}" placeholder="Description" style="min-height:70px;padding:10px;border:1px solid #CBD2DB;font:400 13.5px/1.5 'DM Sans',sans-serif;resize:vertical">{{ i.desc }}</textarea>
+                    <div style="display:flex;gap:10px;margin-top:4px">
+                      <span onClick="{{ i.save }}" style="padding:9px 16px;background:#0F1419;color:#fff;font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;cursor:pointer">Save</span>
+                      <span onClick="{{ i.cancel }}" style="padding:9px 16px;border:1px solid #CBD2DB;color:#5A6473;font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;cursor:pointer">Cancel</span>
+                    </div>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ i.confirmRemove }}" hint-placeholder-val="{{ false }}">
+                  <div style="padding:12px 14px;background:#FFF3CD;border:1px solid #E8B93E;display:flex;align-items:center;justify-content:space-between;gap:12px">
+                    <span style="font:400 13px/1.4 'DM Sans',sans-serif;color:#7A5B00">Remove this entry? This can't be undone.</span>
+                    <div style="display:flex;gap:10px">
+                      <span onClick="{{ i.confirmYes }}" style="padding:7px 12px;background:#7A5B00;color:#fff;font:700 10.5px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;cursor:pointer">Yes, remove</span>
+                      <span onClick="{{ i.confirmNo }}" style="padding:7px 12px;border:1px solid #7A5B00;color:#7A5B00;font:700 10.5px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;cursor:pointer">Cancel</span>
+                    </div>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ i.showContent }}" hint-placeholder-val="{{ true }}">
+                  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px">
+                    <div>
+                      <div style="font:700 15px/1.3 'DM Sans',sans-serif;color:{{ i.textFg }}">{{ i.title }}</div>
+                      <sc-if value="{{ i.subtitle }}" hint-placeholder-val="{{ true }}">
+                        <div style="margin-top:2px;font:400 13px/1.4 'DM Sans',sans-serif;color:{{ i.mutedFg }}">{{ i.subtitle }}</div>
+                      </sc-if>
+                      <sc-if value="{{ i.dates }}" hint-placeholder-val="{{ true }}">
+                        <div style="margin-top:2px;font:400 12.5px/1.4 'DM Sans',sans-serif;color:{{ i.mutedFg }}">{{ i.dates }}</div>
+                      </sc-if>
+                      <sc-if value="{{ i.desc }}" hint-placeholder-val="{{ false }}">
+                        <p style="margin:10px 0 0;font:400 13.5px/1.6 'DM Sans',sans-serif;color:{{ i.mutedFg }}">{{ i.desc }}</p>
+                      </sc-if>
+                    </div>
+                    <div style="display:flex;gap:14px;flex:0 0 auto">
+                      <span onClick="{{ i.startEdit }}" title="Edit" style="cursor:pointer;color:#EA3C1F">✏️</span>
+                      <span onClick="{{ i.toggleHide }}" title="{{ i.hideLabel }}" style="cursor:pointer;color:{{ i.hideFg }}">{{ i.hideIcon }}</span>
+                      <span onClick="{{ i.askRemove }}" title="Remove" style="cursor:pointer;color:#8B95A5">🗑️</span>
+                    </div>
+                  </div>
+                  <sc-if value="{{ i.wasEdited }}" hint-placeholder-val="{{ false }}">
+                    <span onClick="{{ i.undoEdit }}" style="display:inline-block;margin-top:10px;font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;color:#EA3C1F;cursor:pointer">Undo admin edits</span>
+                  </sc-if>
+                </sc-if>
+              </div>
+            </sc-for>
+            </div>
+            </sc-if>
+          </div>
+
+          <div style="background:#fff;border:1px solid #E2E8F0;margin-bottom:16px">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 24px;background:{{ eduHeaderBg }}"><div style="display:flex;align-items:center;gap:10px"><sc-if value="{{ eduHidden }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px">🔒</span></sc-if><div style="font:700 15px/1.4 'DM Sans',sans-serif;color:#0F1419;text-transform:uppercase;letter-spacing:.04em">Education</div><sc-if value="{{ eduHidden }}" hint-placeholder-val="{{ false }}"><span style="padding:4px 8px;background:#FFF3CD;color:#7A5B00;border:1px solid #E8B93E;font:700 10px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.04em">Hidden from client</span></sc-if></div><div style="display:flex;align-items:center;gap:14px"><span onClick="{{ eduAdd }}" style="font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;color:#EA3C1F;cursor:pointer">+ Add</span><span onClick="{{ eduExpand }}" style="font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;color:#EA3C1F;cursor:pointer">Edit</span><span onClick="{{ eduEyeToggle }}" title="{{ eduEyeTitle }}" style="cursor:pointer;font-size:15px;color:{{ eduEyeColor }}">{{ eduEyeIcon }}</span><span onClick="{{ eduChevronToggle }}" style="cursor:pointer;color:#8B95A5;font-size:12px">{{ eduChevron }}</span></div></div>
+            <sc-if value="{{ eduOpen }}" hint-placeholder-val="{{ true }}">
+            <div style="padding:6px 24px 20px">
+            <sc-for list="{{ eduItems }}" as="i" hint-placeholder-count="2">
+              <div style="padding:14px 0;border-top:1px solid #EDF0F4">
+                <div style="font:700 15px/1.3 'DM Sans',sans-serif;color:{{ i.textFg }}">{{ i.title }}</div>
+                <sc-if value="{{ i.subtitle }}" hint-placeholder-val="{{ true }}">
+                  <div style="margin-top:2px;font:400 13px/1.4 'DM Sans',sans-serif;color:{{ i.mutedFg }}">{{ i.subtitle }}</div>
+                </sc-if>
+                <sc-if value="{{ i.dates }}" hint-placeholder-val="{{ true }}">
+                  <div style="margin-top:2px;font:400 12.5px/1.4 'DM Sans',sans-serif;color:{{ i.mutedFg }}">{{ i.dates }}</div>
+                </sc-if>
+                <sc-if value="{{ i.desc }}" hint-placeholder-val="{{ false }}">
+                  <p style="margin:10px 0 0;font:400 13.5px/1.6 'DM Sans',sans-serif;color:{{ i.mutedFg }}">{{ i.desc }}</p>
+                </sc-if>
+                <div style="display:flex;gap:18px;margin-top:12px"><span onClick="{{ i.toggleEdit }}" style="font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;color:#EA3C1F;cursor:pointer">Edit</span><span onClick="{{ i.toggleHide }}" style="display:inline-flex;align-items:center;gap:5px;font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;color:{{ i.hideFg }};cursor:pointer">{{ i.hideIcon }} {{ i.hideLabel }}</span><span onClick="{{ i.reset }}" style="font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;color:#EA3C1F;cursor:pointer">Reset</span><span onClick="{{ i.remove }}" style="font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;color:#EA3C1F;cursor:pointer">Remove</span></div>
+              </div>
+            </sc-for>
+            </div>
+            </sc-if>
+          </div>
+              <div style="background:#fff;border:1px solid #E2E8F0;margin-bottom:16px">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 24px;background:{{ skillsHeaderBg }}"><div style="display:flex;align-items:center;gap:10px"><sc-if value="{{ skillsHidden }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px">🔒</span></sc-if><div style="font:700 15px/1.4 'DM Sans',sans-serif;color:#0F1419;text-transform:uppercase;letter-spacing:.04em">Skills</div><sc-if value="{{ skillsHidden }}" hint-placeholder-val="{{ false }}"><span style="padding:4px 8px;background:#FFF3CD;color:#7A5B00;border:1px solid #E8B93E;font:700 10px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.04em">Hidden from client</span></sc-if></div><div style="display:flex;align-items:center;gap:14px"><span onClick="{{ skillsExpand }}" style="font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;color:#EA3C1F;cursor:pointer">Edit</span><span onClick="{{ skillsEyeToggle }}" title="{{ skillsEyeTitle }}" style="cursor:pointer;font-size:15px;color:{{ skillsEyeColor }}">{{ skillsEyeIcon }}</span><span onClick="{{ skillsChevronToggle }}" style="cursor:pointer;color:#8B95A5;font-size:12px">{{ skillsChevron }}</span></div></div>
+                <sc-if value="{{ skillsOpen }}" hint-placeholder-val="{{ true }}">
+                <div style="padding:20px 24px 4px">
+              <div style="margin-bottom:20px">
+                <div style="font:600 12px/1.4 'DM Sans',sans-serif;color:#5A6473;margin-bottom:8px">Hard skills</div>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+                  <sc-for list="{{ hardSkills }}" as="c" hint-placeholder-count="2">
+                    <span style="display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid #E2E8F0;font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.04em;color:{{ c.fg }}">{{ c.label }} <span onClick="{{ c.toggleHide }}" style="cursor:pointer;color:{{ c.eyeFg }}">👁</span></span>
+                  </sc-for>
+                </div>
+              </div>
+
+              <div style="margin-bottom:20px">
+                <div style="font:600 12px/1.4 'DM Sans',sans-serif;color:#5A6473;margin-bottom:8px">Soft skills</div>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+                  <sc-for list="{{ softSkills }}" as="c" hint-placeholder-count="2">
+                    <span style="display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid #E2E8F0;font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.04em;color:{{ c.fg }}">{{ c.label }} <span onClick="{{ c.toggleHide }}" style="cursor:pointer;color:{{ c.eyeFg }}">👁</span></span>
+                  </sc-for>
+                </div>
+              </div>
+
+              <div style="margin-bottom:20px">
+                <div style="font:600 12px/1.4 'DM Sans',sans-serif;color:#5A6473;margin-bottom:8px">Tools</div>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+                  <sc-for list="{{ tools }}" as="c" hint-placeholder-count="2">
+                    <span style="display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid #E2E8F0;font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.04em;color:{{ c.fg }}">{{ c.label }} <span onClick="{{ c.toggleHide }}" style="cursor:pointer;color:{{ c.eyeFg }}">👁</span></span>
+                  </sc-for>
+                </div>
+              </div>
+                </div>
+                </sc-if>
+              </div>
+              <div style="background:#fff;border:1px solid #E2E8F0;padding:22px 24px;margin-bottom:16px">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px">
+                  <div style="font:700 15px/1.4 'DM Sans',sans-serif;color:#0F1419;text-transform:uppercase;letter-spacing:.04em">Expertise</div>
+                  <span onClick="{{ expertiseHideAll }}" style="display:inline-flex;align-items:center;gap:5px;font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;color:#0F1419;cursor:pointer">👁 {{ expertiseHideAllLabel }}</span>
+                </div>
+
+              <div style="margin-bottom:20px">
+                <div style="font:600 12px/1.4 'DM Sans',sans-serif;color:#5A6473;margin-bottom:8px">Industry</div>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+                  <sc-for list="{{ industryChips }}" as="c" hint-placeholder-count="2">
+                    <span style="display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid #E2E8F0;font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.04em;color:{{ c.fg }}">{{ c.label }} <span onClick="{{ c.toggleHide }}" style="cursor:pointer;color:{{ c.eyeFg }}">👁</span></span>
+                  </sc-for>
+                </div>
+              </div>
+
+              <div style="margin-bottom:20px">
+                <div style="font:600 12px/1.4 'DM Sans',sans-serif;color:#5A6473;margin-bottom:8px">Departments</div>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+                  <sc-for list="{{ deptChips }}" as="c" hint-placeholder-count="2">
+                    <span style="display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid #E2E8F0;font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.04em;color:{{ c.fg }}">{{ c.label }} <span onClick="{{ c.toggleHide }}" style="cursor:pointer;color:{{ c.eyeFg }}">👁</span></span>
+                  </sc-for>
+                </div>
+              </div>
+              </div>
+              <div style="background:#fff;border:1px solid #E2E8F0;margin-bottom:16px">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 24px;background:{{ langHeaderBg }}"><div style="display:flex;align-items:center;gap:10px"><sc-if value="{{ langHidden }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px">🔒</span></sc-if><div style="font:700 15px/1.4 'DM Sans',sans-serif;color:#0F1419;text-transform:uppercase;letter-spacing:.04em">Languages</div><sc-if value="{{ langHidden }}" hint-placeholder-val="{{ false }}"><span style="padding:4px 8px;background:#FFF3CD;color:#7A5B00;border:1px solid #E8B93E;font:700 10px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.04em">Hidden from client</span></sc-if></div><div style="display:flex;align-items:center;gap:14px"><span onClick="{{ langExpand }}" style="font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;color:#EA3C1F;cursor:pointer">Edit</span><span onClick="{{ langEyeToggle }}" title="{{ langEyeTitle }}" style="cursor:pointer;font-size:15px;color:{{ langEyeColor }}">{{ langEyeIcon }}</span><span onClick="{{ langChevronToggle }}" style="cursor:pointer;color:#8B95A5;font-size:12px">{{ langChevron }}</span></div></div>
+                <sc-if value="{{ langOpen }}" hint-placeholder-val="{{ true }}">
+                <div style="padding:20px 24px;display:flex;flex-wrap:wrap;gap:8px">
+                  <sc-for list="{{ languages }}" as="c" hint-placeholder-count="2">
+                    <span style="display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid #E2E8F0;font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.04em;color:{{ c.fg }}">{{ c.label }} <span onClick="{{ c.toggleHide }}" style="cursor:pointer;color:{{ c.eyeFg }}">👁</span></span>
+                  </sc-for>
+                </div>
+                </sc-if>
+              </div>
+              <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;margin-bottom:16px">
+                <div style="background:#fff;border:1px solid #E2E8F0;padding:22px 24px">
+                  <div style="font:700 15px/1.4 'DM Sans',sans-serif;color:#0F1419;text-transform:uppercase;letter-spacing:.04em">Availability</div>
+                  <div style="margin-top:14px;font:400 11px/1.4 'DM Sans',sans-serif;color:#8B95A5;text-transform:uppercase;letter-spacing:.05em">Working time</div>
+                  <div style="margin-top:8px;display:flex;align-items:center;gap:8px;font:400 14px/1.4 'DM Sans',sans-serif;color:#2D3748">📅 Not available</div>
+                </div>
+                <div style="background:#fff;border:1px solid #E2E8F0">
+                  <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 24px;background:{{ cfHeaderBg }}"><div style="display:flex;align-items:center;gap:10px"><sc-if value="{{ cfHidden }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px">🔒</span></sc-if><div style="font:700 15px/1.4 'DM Sans',sans-serif;color:#0F1419;text-transform:uppercase;letter-spacing:.04em">Custom fields</div><sc-if value="{{ cfHidden }}" hint-placeholder-val="{{ false }}"><span style="padding:4px 8px;background:#FFF3CD;color:#7A5B00;border:1px solid #E8B93E;font:700 10px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.04em">Hidden from client</span></sc-if></div><div style="display:flex;align-items:center;gap:14px"><span onClick="{{ cfExpand }}" style="font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;color:#EA3C1F;cursor:pointer">Edit</span><span onClick="{{ cfEyeToggle }}" title="{{ cfEyeTitle }}" style="cursor:pointer;font-size:15px;color:{{ cfEyeColor }}">{{ cfEyeIcon }}</span><span onClick="{{ cfChevronToggle }}" style="cursor:pointer;color:#8B95A5;font-size:12px">{{ cfChevron }}</span></div></div>
+                  <sc-if value="{{ cfOpen }}" hint-placeholder-val="{{ true }}">
+                  <div style="padding:20px 24px">
+                  <div style="font:400 11px/1.4 'DM Sans',sans-serif;color:#8B95A5;text-transform:uppercase;letter-spacing:.05em">Salary</div>
+                  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+                    <sc-for list="{{ salaryOptions }}" as="sopt" hint-placeholder-count="5">
+                      <span onClick="{{ sopt.pick }}" style="padding:8px 10px;border:1px solid {{ sopt.bd }};background:{{ sopt.bg }};color:{{ sopt.fg }};font:700 12px/1.4 'DM Sans',sans-serif;cursor:pointer">{{ sopt.label }}</span>
+                    </sc-for>
+                  </div>
+                  </div>
+                  </sc-if>
+                </div>
+              </div>
+              <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;margin-bottom:16px">
+                <div style="background:#fff;border:1px solid #E2E8F0;padding:22px 24px">
+                  <div style="font:700 15px/1.4 'DM Sans',sans-serif;color:#0F1419;text-transform:uppercase;letter-spacing:.04em">Resources</div>
+                  <p style="margin:14px 0 0;font:400 13.5px/1.4 'DM Sans',sans-serif;color:#8B95A5">No resources added</p>
+                </div>
+                <div style="background:#fff;border:1px solid #E2E8F0;padding:22px 24px">
+                  <div style="font:700 15px/1.4 'DM Sans',sans-serif;color:#0F1419;text-transform:uppercase;letter-spacing:.04em">Linked accounts</div>
+                  <p style="margin:14px 0 0;font:400 13.5px/1.4 'DM Sans',sans-serif;color:#8B95A5">No linked accounts</p>
+                </div>
+              </div>
+              <div style="border-top:1px solid #E2E8F0;padding-top:24px">
+                <div style="font:700 20px/1.2 'DM Sans',sans-serif;color:#0F1419;text-transform:uppercase;letter-spacing:-.01em">Comments ({{ comments.length }})</div>
+                <sc-for list="{{ comments }}" as="cm" hint-placeholder-count="0">
+                  <div style="margin-top:14px;padding:12px 0;border-top:1px solid #EDF0F4;font:400 13.5px/1.5 'DM Sans',sans-serif;color:#2D3748">{{ cm.text }}</div>
+                </sc-for>
+                <div style="margin-top:16px;font:700 11px/1.4 'DM Sans',sans-serif;color:#0F1419;text-transform:uppercase;letter-spacing:.05em">Your comment</div>
+                <textarea onInput="{{ setComment }}" placeholder="My comment" style="width:100%;box-sizing:border-box;margin-top:8px;height:110px;padding:12px;border:1px solid #CBD2DB;font:400 14px/1.4 'DM Sans',sans-serif;resize:vertical"></textarea>
+                <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:14px">
+                  <span onClick="{{ clearComment }}" style="padding:11px 18px;border:1px solid #CBD2DB;color:#8B95A5;font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;cursor:pointer">Cancel</span>
+                  <span onClick="{{ postComment }}" style="padding:11px 18px;background:#8B95A5;color:#fff;font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;cursor:pointer">Post</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ isDeptsPage }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <h1 style="margin:0 0 22px;font:700 25px/1.2 'DM Sans',sans-serif;color:#0F1419;text-transform:uppercase;letter-spacing:-.01em">Departments</h1>
+
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:16px">
+            <input placeholder="Search" style="width:340px;max-width:100%;box-sizing:border-box;height:44px;padding:0 14px;border:1px solid #CBD2DB;border-radius:0;font:400 14px/1.4 'DM Sans',sans-serif">
+            <span onClick="{{ openDeptModal }}" style="padding:13px 20px;background:#0F1419;color:#fff;font:700 12px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;white-space:nowrap" style-hover="background:#EA3C1F">+ New department</span>
+          </div>
+
+          <div style="background:#F5F6F8;padding:11px 18px;font:500 12px/1.4 'DM Sans',sans-serif;color:#5A6473;border:1px solid #E2E8F0;border-bottom:0">Departments: <span style="font:700 12px/1.4 'DM Sans',sans-serif;color:#0F1419">{{ departments.length }} of 10</span></div>
+
+          <div style="border:1px solid #E2E8F0;overflow-x:auto">
+            <div style="display:grid;grid-template-columns:1fr 120px 170px 90px;gap:12px;padding:13px 18px;background:#F5F6F8;border-bottom:1px solid #E2E8F0;min-width:600px">
+              <span style="font:500 11.5px/1.4 'DM Sans',sans-serif;color:#5A6473;text-transform:uppercase;letter-spacing:.04em">Department</span>
+              <span style="font:500 11.5px/1.4 'DM Sans',sans-serif;color:#5A6473;text-transform:uppercase;letter-spacing:.04em">Members</span>
+              <span style="font:500 11.5px/1.4 'DM Sans',sans-serif;color:#5A6473;text-transform:uppercase;letter-spacing:.04em">Created at</span>
+              <span></span>
+            </div>
+            <sc-for list="{{ departments }}" as="d" hint-placeholder-count="2">
+              <div style="display:grid;grid-template-columns:1fr 120px 170px 90px;gap:12px;align-items:center;padding:16px 18px;border-bottom:1px solid #EDF0F4;min-width:600px" style-hover="background:#FAFAFA">
+                <span style="font:600 14px/1.4 'DM Sans',sans-serif;color:#0F1419">{{ d.name }}</span>
+                <span style="font:400 13.5px/1.4 'DM Sans',sans-serif;color:#2D3748">{{ d.members }}</span>
+                <span style="font:400 13.5px/1.4 'DM Sans',sans-serif;color:#2D3748">{{ d.created }}</span>
+                <span onClick="{{ d.remove }}" style="padding:6px 10px;border:1px solid #EA3C1F;color:#EA3C1F;font:700 10.5px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;text-align:center;cursor:pointer;white-space:nowrap" style-hover="background:#EA3C1F;color:#fff">Delete</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ isFieldsPage }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:22px">
+            <h1 style="margin:0;font:700 25px/1.2 'DM Sans',sans-serif;color:#0F1419;text-transform:uppercase;letter-spacing:-.01em">Custom fields</h1>
+            <div style="display:flex;align-items:center;gap:12px">
+              <sc-if value="{{ atFieldLimit }}" hint-placeholder-val="{{ false }}">
+                <span style="font:400 12px/1.4 'DM Sans',sans-serif;color:#8B95A5">6 of 6 fields used</span>
+              </sc-if>
+              <span onClick="{{ openFieldModal }}" style="padding:12px 18px;border:1px solid {{ addFieldBd }};background:{{ addFieldBg }};color:{{ addFieldFg }};font:700 12px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;cursor:{{ addFieldCursor }}" style-hover="background:#0F1419;color:#fff">+ Add custom field</span>
+            </div>
+          </div>
+
+          <div style="border:1px solid #E2E8F0;overflow-x:auto">
+            <div style="display:grid;grid-template-columns:minmax(150px,1.2fr) minmax(200px,1.4fr) minmax(120px,.9fr) minmax(190px,1.2fr) minmax(140px,1fr) 90px;gap:12px;padding:13px 18px;background:#F5F6F8;border-bottom:1px solid #E2E8F0;min-width:900px">
+              <sc-for list="{{ fieldColumns }}" as="c" hint-placeholder-count="6">
+                <span style="font:500 11.5px/1.4 'DM Sans',sans-serif;color:#5A6473;text-transform:uppercase;letter-spacing:.04em">{{ c.label }}</span>
+              </sc-for>
+            </div>
+            <sc-for list="{{ customFields }}" as="cf" hint-placeholder-count="2">
+              <div style="display:grid;grid-template-columns:minmax(150px,1.2fr) minmax(200px,1.4fr) minmax(120px,.9fr) minmax(190px,1.2fr) minmax(140px,1fr) 90px;gap:12px;align-items:center;padding:16px 18px;border-bottom:1px solid #EDF0F4;min-width:900px">
+                <span style="display:inline-flex;align-items:center;gap:8px;min-width:0">
+                  <span style="font:500 13.5px/1.4 'DM Sans',sans-serif;color:{{ cf.nameFg }};padding:3px 6px;border:1px dashed transparent;cursor:text" style-hover="border-color:#CBD2DB">{{ cf.name }}</span>
+                  <span style="font:400 10.5px/1.4 'DM Sans',sans-serif;color:#A0AAB8">click to rename</span>
+                </span>
+                <span style="display:flex;flex-wrap:wrap;gap:5px">
+                  <sc-for list="{{ cf.values }}" as="v" hint-placeholder-count="3">
+                    <span style="padding:3px 8px;background:{{ cf.chipBg }};color:{{ cf.chipFg }};font:700 11px/1.4 'DM Sans',sans-serif;white-space:nowrap">{{ v.label }}</span>
+                  </sc-for>
+                </span>
+                <span><span style="padding:4px 9px;background:#F5F6F8;color:#2D3748;font:700 10.5px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.04em">{{ cf.departments }}</span></span>
+                <span style="display:flex;align-items:center;gap:10px">
+                  <span onClick="{{ cf.toggleFilter }}" style="position:relative;width:42px;height:23px;border-radius:12px;background:{{ cf.filterTrack }};cursor:pointer;flex:0 0 auto;transition:background .22s cubic-bezier(.2,.8,.2,1)"><span style="position:absolute;top:2px;left:{{ cf.filterKnob }};width:19px;height:19px;border-radius:50%;background:#fff;transition:left .22s cubic-bezier(.2,.8,.2,1)"></span></span>
+                  <sc-if value="{{ cf.filterable }}" hint-placeholder-val="{{ true }}">
+                    <span onClick="{{ cf.jumpToFilter }}" style="padding:4px 8px;border:1px solid #0097A7;color:#0097A7;font:600 10px/1.4 'DM Sans',sans-serif;white-space:nowrap;cursor:pointer" style-hover="background:#0097A7;color:#fff">Live in filter bar → view it</span>
+                  </sc-if>
+                </span>
+                <span>
+                  <span onClick="{{ cf.toggleCard }}" style="position:relative;width:42px;height:23px;border-radius:12px;background:{{ cf.cardTrack }};cursor:pointer;display:inline-block;transition:background .22s cubic-bezier(.2,.8,.2,1)"><span style="position:absolute;top:2px;left:{{ cf.cardKnob }};width:19px;height:19px;border-radius:50%;background:#fff;transition:left .22s cubic-bezier(.2,.8,.2,1)"></span></span>
+                </span>
+                <span style="padding:6px 10px;border:1px solid #EA3C1F;color:#EA3C1F;font:700 10.5px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;text-align:center;cursor:pointer" style-hover="background:#EA3C1F;color:#fff">Delete</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        </sc-if>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ isClient }}" hint-placeholder-val="{{ false }}">
+    <div style="background:#F5F6F8;padding:0 0 90px">
+      <div style="max-width:1440px;margin:0 auto;padding:32px 40px 0">
+        <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:24px">
+          <div>
+            <h1 style="margin:0;font:700 28px/1.15 'DM Sans',sans-serif;color:#0F1419;letter-spacing:-.02em">Talent bench</h1>
+          </div>
+          <div style="display:flex;gap:12px">
+            <div style="text-align:center;min-width:88px;padding:12px 18px;background:#fff;border-radius:14px;box-shadow:0 6px 18px rgba(0,0,0,.06)">
+              <span style="display:block;font:700 24px/1 'DM Sans',sans-serif;color:#3AC12F">{{ rosieFullTotal }}</span>
+              <span style="font:600 9.5px/1.4 'DM Sans',sans-serif;color:#8B95A5;text-transform:uppercase;letter-spacing:.08em">Total talent</span>
+            </div>
+            <div style="text-align:center;min-width:88px;padding:12px 18px;background:#fff;border-radius:14px;box-shadow:0 6px 18px rgba(0,0,0,.06)">
+              <span style="display:block;font:700 24px/1 'DM Sans',sans-serif;color:#0F1419">{{ rosieTotal }}</span>
+              <span style="font:600 9.5px/1.4 'DM Sans',sans-serif;color:#8B95A5;text-transform:uppercase;letter-spacing:.08em">Showing</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:#fff;border-radius:14px;box-shadow:0 6px 18px rgba(0,0,0,.06);padding:14px 16px;margin-bottom:26px">
+          <div style="display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;margin-bottom:0">
+            <div style="position:relative;flex:0 1 340px;min-width:220px">
+              <span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#A0AAB8;font-size:13px">⌕</span>
+              <input placeholder="Search by name, role, or skills..." style="width:100%;box-sizing:border-box;height:36px;padding:0 14px 0 36px;border:1px solid #E2E8F0;border-radius:10px;background:#F5F6F8;font:400 13.5px/1.4 'DM Sans',sans-serif">
+            </div>
+            <sc-for list="{{ filters }}" as="f" hint-placeholder-count="4">
+              <div style="position:relative">
+                <div style="font:700 9.5px/1.4 'DM Sans',sans-serif;color:#A0AAB8;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">{{ f.groupLabel }}</div>
+                <span onClick="{{ f.toggle }}" style="display:inline-flex;align-items:center;gap:10px;padding:6px 12px;border-radius:10px;border:1px solid {{ f.bd }};background:{{ f.chipBg }};color:{{ f.fg }};font:600 12.5px/1.4 'DM Sans',sans-serif;cursor:pointer;white-space:nowrap">{{ f.label }} <span style="color:#A0AAB8">▾</span></span>
+                <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+                  <div style="position:absolute;top:58px;left:0;z-index:25;min-width:190px;background:#fff;border:1px solid #E2E8F0;border-radius:10px;box-shadow:0 12px 28px rgba(0,0,0,.16);padding:6px;display:flex;flex-direction:column">
+                    <sc-for list="{{ f.options }}" as="o" hint-placeholder-count="4">
+                      <span onClick="{{ o.pick }}" style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 11px;border-radius:6px;font:500 12.5px/1.4 'DM Sans',sans-serif;color:{{ o.fg }};cursor:pointer;white-space:nowrap" style-hover="background:#F5F6F8">{{ o.label }} <span style="color:#003ACC">{{ o.tick }}</span></span>
+                    </sc-for>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px">
+          <sc-for list="{{ clientRosies }}" as="r" hint-placeholder-count="6">
+            <div style="background:#fff;border-radius:14px;padding:22px;box-shadow:0 6px 18px rgba(0,0,0,.06);border:2px solid transparent;cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s" style-hover="transform:translateY(-3px);box-shadow:0 14px 28px rgba(254,206,231,.7);border-color:#FECEE7">
+              <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px">
+                <div style="flex:1;min-width:0">
+                  <div style="font:700 18px/1.3 'DM Sans',sans-serif;color:#0F1419;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.name }}</div>
+                  <div style="margin-top:2px;font:500 13px/1.4 'DM Sans',sans-serif;color:#718096">{{ r.dept }}</div>
+                </div>
+                <sc-if value="{{ r.tierShown }}" hint-placeholder-val="{{ true }}">
+                  <span style="flex:0 0 auto;padding:5px 11px;border-radius:999px;background:{{ r.tierBg }};color:{{ r.tierFg }};font:700 10.5px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em">{{ r.tier }}</span>
+                </sc-if>
+                <sc-if value="{{ r.salaryCardShown }}" hint-placeholder-val="{{ true }}">
+                  <span style="flex:0 0 auto;padding:5px 11px;border-radius:999px;background:#EDF2FE;color:#003ACC;font:700 10.5px/1.4 'DM Sans',sans-serif">{{ r.salary }}</span>
+                </sc-if>
+              </div>
+
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:14px">
+                <span style="font:700 14.5px/1.4 'DM Sans',sans-serif;color:#0F1419">{{ r.role }}</span>
+                <span style="height:26px;display:inline-flex;align-items:center;padding:0 12px;border-radius:999px;background:{{ r.availSolidBg }};color:{{ r.availFg2 }};font:700 10.5px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.04em">{{ r.availability }}</span>
+              </div>
+              <p style="margin:9px 0 0;font:400 13px/1.6 'DM Sans',sans-serif;color:#718096">{{ r.blurb }}</p>
+
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;padding-top:14px;border-top:1px solid #EDF0F4">
+                <div>
+                  <div style="font:700 9.5px/1.4 'DM Sans',sans-serif;color:#A0AAB8;text-transform:uppercase;letter-spacing:.07em">Location</div>
+                  <div style="margin-top:3px;font:600 12.5px/1.4 'DM Sans',sans-serif;color:#0F1419">{{ r.location }}</div>
+                </div>
+                <div>
+                  <div style="font:700 9.5px/1.4 'DM Sans',sans-serif;color:#A0AAB8;text-transform:uppercase;letter-spacing:.07em">Experience</div>
+                  <div style="margin-top:3px;font:600 12.5px/1.4 'DM Sans',sans-serif;color:#0F1419">{{ r.experience }}</div>
+                </div>
+              </div>
+
+              <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:14px">
+                <sc-for list="{{ r.skillChips }}" as="sk" hint-placeholder-count="4">
+                  <span style="padding:5px 9px;border-radius:6px;background:rgba(58,193,47,.12);color:#227A1B;font:600 10.5px/1.4 'DM Sans',sans-serif">{{ sk.label }}</span>
+                </sc-for>
+              </div>
+
+              <div style="margin-top:16px;padding:12px;border-radius:10px;background:#0F1419;color:#fff;text-align:center;font:700 12px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.04em;cursor:pointer" style-hover="background:#FFFA00;color:#0F1419">View full profile</div>
+            </div>
+          </sc-for>
+        </div>
+        <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#fff;border-radius:14px;box-shadow:0 6px 18px rgba(0,0,0,.06);padding:56px 24px;text-align:center">
+            <div style="font:700 15px/1.4 'DM Sans',sans-serif;color:#2D3748">No Rosies match these filters</div>
+            <p style="margin:7px 0 0;font:400 13px/1.6 'DM Sans',sans-serif;color:#8B95A5">Try widening one of them, or start again.</p>
+            <span onClick="{{ clearFilters }}" style="display:inline-block;margin-top:16px;padding:11px 20px;border-radius:10px;background:#003ACC;color:#fff;font:700 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;cursor:pointer">Clear filters</span>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+    </sc-if>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ rowDeptMenuOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeRowDeptMenu }}" style="position:fixed;inset:0;z-index:290"></div>
+  </sc-if>
+  <sc-if value="{{ rowDeptMenuOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;top:{{ rowDeptMenuTop }};left:{{ rowDeptMenuLeft }};z-index:300;min-width:170px;background:#fff;border:1px solid #E2E8F0;box-shadow:0 12px 28px rgba(0,0,0,.18);padding:5px;display:flex;flex-direction:column">
+      <sc-for list="{{ rowDeptMenuOptions }}" as="o" hint-placeholder-count="4">
+        <span onClick="{{ o.pick }}" style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;font:500 12.5px/1.4 'DM Sans',sans-serif;color:{{ o.fg }};cursor:pointer;white-space:nowrap" style-hover="background:#F5F6F8">{{ o.label }} <span style="color:#EA3C1F">{{ o.tick }}</span></span>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ deptModal }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeDeptModal }}" style="position:fixed;inset:0;background:rgba(15,20,25,.45);z-index:600"></div>
+  </sc-if>
+  <sc-if value="{{ rowDeptMenuOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeRowDeptMenu }}" style="position:fixed;inset:0;z-index:290"></div>
+  </sc-if>
+  <sc-if value="{{ rowDeptMenuOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;top:{{ rowDeptMenuTop }};left:{{ rowDeptMenuLeft }};z-index:300;min-width:170px;background:#fff;border:1px solid #E2E8F0;box-shadow:0 12px 28px rgba(0,0,0,.18);padding:5px;display:flex;flex-direction:column">
+      <sc-for list="{{ rowDeptMenuOptions }}" as="o" hint-placeholder-count="4">
+        <span onClick="{{ o.pick }}" style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;font:500 12.5px/1.4 'DM Sans',sans-serif;color:{{ o.fg }};cursor:pointer;white-space:nowrap" style-hover="background:#F5F6F8">{{ o.label }} <span style="color:#EA3C1F">{{ o.tick }}</span></span>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ deptModal }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:610;width:min(500px,92vw);background:#fff;box-shadow:0 30px 60px rgba(0,0,0,.28);padding:34px 36px 28px">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:20px">
+        <h2 style="margin:0;font:700 27px/1.1 'DM Sans',sans-serif;color:#0F1419;text-transform:uppercase;letter-spacing:-.01em">Create department</h2>
+        <span onClick="{{ closeDeptModal }}" style="cursor:pointer;font-size:18px;color:#0F1419">✕</span>
+      </div>
+      <div style="margin-top:26px">
+        <div style="font:700 12px/1.4 'DM Sans',sans-serif;color:#0F1419;text-transform:uppercase;letter-spacing:.05em">Name</div>
+        <input onInput="{{ setDeptName }}" placeholder="Name" style="width:100%;box-sizing:border-box;margin-top:9px;height:48px;padding:0 14px;border:1px solid #CBD2DB;border-radius:0;font:400 14px/1.4 'DM Sans',sans-serif">
+      </div>
+      <div style="display:flex;align-items:center;justify-content:flex-end;gap:18px;margin-top:32px">
+        <span onClick="{{ closeDeptModal }}" style="font:700 12.5px/1.4 'DM Sans',sans-serif;color:#2D3748;text-transform:uppercase;letter-spacing:.05em;cursor:pointer">Cancel</span>
+        <span onClick="{{ createDept }}" style="padding:13px 26px;background:#0F1419;color:#fff;font:700 12.5px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;cursor:pointer" style-hover="background:#EA3C1F">Create</span>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ fieldModal }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeFieldModal }}" style="position:fixed;inset:0;background:rgba(15,20,25,.45);z-index:600"></div>
+  </sc-if>
+  <sc-if value="{{ fieldModal }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:610;width:min(600px,92vw);max-height:88vh;overflow-y:auto;background:#fff;box-shadow:0 30px 60px rgba(0,0,0,.28);padding:34px 36px 28px">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:20px">
+        <h2 style="margin:0;font:700 27px/1.1 'DM Sans',sans-serif;color:#0F1419;text-transform:uppercase;letter-spacing:-.01em">Add custom field</h2>
+        <span onClick="{{ closeFieldModal }}" style="cursor:pointer;font-size:18px;color:#0F1419">✕</span>
+      </div>
+
+      <div style="margin-top:26px">
+        <div style="font:700 12px/1.4 'DM Sans',sans-serif;color:#0F1419;text-transform:uppercase;letter-spacing:.05em">Field name<span style="color:#EA3C1F">*</span></div>
+        <input onInput="{{ setFieldName }}" value="{{ newFieldName }}" placeholder="Field name" style="width:100%;box-sizing:border-box;margin-top:9px;height:48px;padding:0 14px;border:1px solid #CBD2DB;border-radius:0;font:400 14px/1.4 'DM Sans',sans-serif">
+      </div>
+
+      <div style="margin-top:24px">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px">
+          <div style="font:700 12px/1.4 'DM Sans',sans-serif;color:#0F1419;text-transform:uppercase;letter-spacing:.05em">Field values<span style="color:#EA3C1F">*</span></div>
+          <sc-if value="{{ canAddValue }}" hint-placeholder-val="{{ true }}">
+            <span onClick="{{ addValue }}" style="font:700 11.5px/1.4 'DM Sans',sans-serif;color:#003ACC;text-transform:uppercase;letter-spacing:.04em;cursor:pointer">+ Add value</span>
+          </sc-if>
+        </div>
+        <sc-for list="{{ valueRows }}" as="v" hint-placeholder-count="1">
+          <div style="display:flex;align-items:center;gap:10px;margin-top:9px">
+            <input onInput="{{ v.setVal }}" value="{{ v.text }}" placeholder="{{ v.placeholder }}" style="flex:1;box-sizing:border-box;height:48px;padding:0 14px;border:1px solid #CBD2DB;border-radius:0;font:400 14px/1.4 'DM Sans',sans-serif">
+            <sc-if value="{{ v.canRemove }}" hint-placeholder-val="{{ false }}">
+              <span onClick="{{ v.remove }}" style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;border:1px solid #E2E8F0;background:#FAFAFA;color:#EA3C1F;cursor:pointer;font-size:13px">✕</span>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="margin-top:24px">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px">
+          <div style="font:700 12px/1.4 'DM Sans',sans-serif;color:#0F1419;text-transform:uppercase;letter-spacing:.05em">Departments</div>
+          <span onClick="{{ addDept }}" style="font:700 11.5px/1.4 'DM Sans',sans-serif;color:#003ACC;text-transform:uppercase;letter-spacing:.04em;cursor:pointer">+ Add department</span>
+        </div>
+        <sc-for list="{{ deptRows }}" as="d" hint-placeholder-count="1">
+          <div style="display:flex;align-items:center;gap:10px;margin-top:9px">
+            <div style="flex:1;position:relative">
+              <span onClick="{{ d.toggle }}" style="height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;border:1px solid {{ d.bd }};font:500 13.5px/1.4 'DM Sans',sans-serif;color:#2D3748;text-transform:uppercase;letter-spacing:.03em;cursor:pointer">{{ d.label }} <span style="color:#A0AAB8">▾</span></span>
+              <sc-if value="{{ d.open }}" hint-placeholder-val="{{ false }}">
+                <div style="position:absolute;top:52px;left:0;right:0;z-index:30;background:#fff;border:1px solid #E2E8F0;box-shadow:0 12px 28px rgba(0,0,0,.16);padding:5px;display:flex;flex-direction:column">
+                  <sc-for list="{{ d.options }}" as="o" hint-placeholder-count="5">
+                    <span onClick="{{ o.pick }}" style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 11px;font:500 12.5px/1.4 'DM Sans',sans-serif;color:{{ o.fg }};cursor:pointer" style-hover="background:#F5F6F8">{{ o.label }} <span style="color:#EA3C1F">{{ o.tick }}</span></span>
+                  </sc-for>
+                </div>
+              </sc-if>
+            </div>
+            <span onClick="{{ d.remove }}" style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;border:1px solid #E2E8F0;background:#FAFAFA;color:#EA3C1F;cursor:pointer;font-size:13px">✕</span>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="margin-top:26px;display:flex;flex-direction:column;gap:18px">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:20px">
+          <div style="min-width:0">
+            <div style="font:600 13.5px/1.4 'DM Sans',sans-serif;color:#0F1419">Let clients filter by this field</div>
+            <div style="margin-top:3px;font:400 11px/1.5 'DM Sans',sans-serif;color:#8B95A5">Clients will see this as a dropdown filter on their bench view.</div>
+          </div>
+          <span onClick="{{ toggleNewFilter }}" style="flex:0 0 auto;position:relative;width:46px;height:25px;border-radius:13px;background:{{ newFilterTrack }};cursor:pointer;transition:background .22s cubic-bezier(.2,.8,.2,1)"><span style="position:absolute;top:2px;left:{{ newFilterKnob }};width:21px;height:21px;border-radius:50%;background:#fff;transition:left .22s cubic-bezier(.2,.8,.2,1)"></span></span>
+        </div>
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:20px">
+          <div style="min-width:0">
+            <div style="font:600 13.5px/1.4 'DM Sans',sans-serif;color:#0F1419">Show on Rosie profile card</div>
+            <div style="margin-top:3px;font:400 11px/1.5 'DM Sans',sans-serif;color:#8B95A5">This field will appear on each Rosie's profile.</div>
+          </div>
+          <span onClick="{{ toggleNewCard }}" style="flex:0 0 auto;position:relative;width:46px;height:25px;border-radius:13px;background:{{ newCardTrack }};cursor:pointer;transition:background .22s cubic-bezier(.2,.8,.2,1)"><span style="position:absolute;top:2px;left:{{ newCardKnob }};width:21px;height:21px;border-radius:50%;background:#fff;transition:left .22s cubic-bezier(.2,.8,.2,1)"></span></span>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:flex-end;gap:18px;margin-top:30px">
+        <span onClick="{{ closeFieldModal }}" style="font:700 12.5px/1.4 'DM Sans',sans-serif;color:#2D3748;text-transform:uppercase;letter-spacing:.05em;cursor:pointer">Cancel</span>
+        <span onClick="{{ createField }}" style="padding:13px 26px;background:#0F1419;color:#fff;font:700 12.5px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;cursor:pointer" style-hover="background:#EA3C1F">Create</span>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ confirmOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ confirmCancel }}" style="position:fixed;inset:0;background:rgba(15,20,25,.45);z-index:900"></div>
+  </sc-if>
+  <sc-if value="{{ confirmOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:910;width:min(400px,92vw);background:#fff;border-radius:14px;box-shadow:0 30px 60px rgba(0,0,0,.28);padding:28px 30px">
+      <div style="font:700 18px/1.2 'DM Sans',sans-serif;color:#0F1419">{{ confirmTitle }}</div>
+      <p style="margin:10px 0 0;font:400 13.5px/1.5 'DM Sans',sans-serif;color:#718096">{{ confirmBody }} Type <b style="color:#0F1419">{{ confirmWord }}</b> to continue.</p>
+      <input onInput="{{ confirmSetInput }}" value="{{ confirmInput }}" placeholder="{{ confirmWord }}" style="width:100%;box-sizing:border-box;margin-top:16px;height:44px;padding:0 14px;border:1px solid #CBD2DB;border-radius:8px;font:400 14px/1.4 'DM Sans',sans-serif;text-transform:uppercase" />
+      <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:20px">
+        <span onClick="{{ confirmCancel }}" style="padding:11px 16px;font:700 12px/1.4 'DM Sans',sans-serif;color:#2D3748;text-transform:uppercase;letter-spacing:.04em;cursor:pointer">Cancel</span>
+        <span onClick="{{ confirmGo }}" style="padding:11px 18px;background:{{ confirmBtnBg }};color:#fff;border-radius:8px;font:700 12px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.04em;cursor:{{ confirmBtnCursor }}">{{ confirmCta }}</span>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ tourOn }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ endTour }}" style="position:fixed;inset:0;background:rgba(15,20,25,.4);z-index:700"></div>
+  </sc-if>
+  <sc-if value="{{ tourOn }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;left:{{ tourLeft }};top:{{ tourTop }};z-index:800;width:320px;background:#fff;border-radius:12px;border:1px solid #E2E8F0;box-shadow:0 20px 40px rgba(0,0,0,.24);padding:20px">
+      <span style="position:absolute;top:-7px;left:{{ tourPointer }};width:13px;height:13px;background:#fff;border-left:1px solid #E2E8F0;border-top:1px solid #E2E8F0;border-radius:3px 0 0 0;transform:rotate(45deg)"></span>
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px">
+        <span style="font:600 14px/1.4 'DM Sans',sans-serif;color:#0F1419">{{ tourTitle }}</span>
+        <span onClick="{{ endTour }}" style="cursor:pointer;color:#A0AAB8;font-size:13px">✕</span>
+      </div>
+      <p style="margin:8px 0 0;font:400 12.5px/1.6 'DM Sans',sans-serif;color:#718096">{{ tourBody }}</p>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:18px">
+        <div style="display:flex;gap:6px">
+          <sc-for list="{{ tourDots }}" as="d" hint-placeholder-count="3">
+            <span style="width:6px;height:6px;border-radius:50%;background:{{ d.bg }}"></span>
+          </sc-for>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px">
+          <span onClick="{{ endTour }}" style="cursor:pointer;font:400 12px/1.4 'DM Sans',sans-serif;color:#A0AAB8">Skip all</span>
+          <span onClick="{{ nextTour }}" style="cursor:pointer;padding:8px 14px;background:#EA3C1F;color:#fff;border-radius:8px;font:600 11px/1.4 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.04em">{{ tourNext }}</span>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+const BENCHES = [
+  {name:'Publicis Groupe', slug:'publicis', updated:'Mar 15, 2026', status:'In Review', total:8, new:3, prev:5},
+  {name:'Capital One',     slug:'capital-one', updated:'Mar 14, 2026', status:'Shared',    total:6,  new:2, prev:4},
+  {name:'Google',          slug:'google', updated:'Mar 12, 2026', status:'Draft',     total:4,  new:4, prev:0},
+  {name:'Jellyfish',       slug:'jellyfish', updated:'Mar 09, 2026', status:'Feedback',  total:8,  new:1, prev:7},
+  {name:'Rimowa',          slug:'rimowa', updated:'Mar 04, 2026', status:'Shared',    total:5,  new:0, prev:5},
+  {name:'The New York Times', slug:'nyt', updated:'Feb 27, 2026', status:'Draft',  total:3,  new:3, prev:0},
+];
+
+const STATUSES = ['Draft','In Review','Shared','Feedback'];
+
+const BADGE = {
+  'Draft':     {bg:'rgba(255,250,0,.22)',  fg:'#7A6A00', dot:'#E4DF00'},
+  'In Review': {bg:'rgba(0,58,204,.10)',   fg:'#002E9E', dot:'#003ACC'},
+  'Shared':    {bg:'rgba(58,193,47,.12)',  fg:'#227A1B', dot:'#3AC12F'},
+  'Feedback':  {bg:'rgba(254,206,231,.5)', fg:'#9B2C63', dot:'#F06AA8'},
+};
+
+const TOUR = [
+  {target:'tour-search', title:'Search is always scoped', body:'Here it looks across your own benches. Once you open a bench, the search only covers the Rosies on that precise bench — never the wider Rosie database.'},
+  {target:'tour-tabs', title:'Filter by status', body:'Track where each bench sits — draft, in review, shared with the client, or waiting on feedback.'},
+  {target:'tour-new', title:'Create a company bench', body:'Spin up a bench for a client, then start adding Rosies to it.'},
+];
+
+const ROSIES = [
+  {name:'Jessica Gissubel', role:'Digital Designer',   dept:'Marketing',   tier:'Tier 1', salary:'$$$$',  avail:'Available',     needsReview:false, blurb:'Brand identity and digital work for Nike, Spotify and Airbnb.'},
+  {name:'Michael Chen',     role:'Creative Director',  dept:'Tech Brand',  tier:'Tier 1', salary:'$$$$$', avail:'On assignment', needsReview:false, blurb:'Fifteen years leading integrated campaigns for tech brands.'},
+  {name:'Sarah Thompson',   role:'UX Designer',        dept:'Marketing',   tier:'Tier 2', salary:'$$$',   avail:'Available',     needsReview:true,  blurb:'User research and design systems for enterprise products.'},
+  {name:'David Martinez',   role:'Copywriter',         dept:'Marketing',   tier:'Tier 1', salary:'$$$$',  avail:'Limited',       needsReview:false, blurb:'Brand messaging and campaign copy across retail and travel.'},
+  {name:'Emily Rodriguez',  role:'Brand Strategist',   dept:'Tech Brand',  tier:'Tier 3', salary:'$$',    avail:'Available',     needsReview:false, blurb:'Positioning and go-to-market grounded in market research.'},
+  {name:'Alex Kim',         role:'Art Director',       dept:'Marketing',   tier:'Tier 2', salary:'$$$',   avail:'Available',     needsReview:false, blurb:'Art direction for social-first campaigns and product launches.'},
+  {name:'Priya Raman',      role:'Media Planner',      dept:'Performance', tier:'Tier 2', salary:'$$$',   avail:'On assignment', needsReview:false, blurb:'Paid media planning across retail media and CTV.'},
+  {name:'Tom Okafor',       role:'Content Strategist', dept:'Performance', tier:'Tier 3', salary:'$$',    avail:'Available',     needsReview:true,  blurb:'Editorial strategy and content operations for global brands.'},
+];
+
+const AVAIL_SOLID = {
+  'Available':     '#3AC12F',
+  'On assignment': '#003ACC',
+  'Limited':       '#E4A700',
+};
+
+const TIER_COLOR = {
+  'Tier 1': {bg:'#0F1419', fg:'#FFFA00'},
+  'Tier 2': {bg:'#0F1419', fg:'#FFFA00'},
+  'Tier 3': {bg:'#0F1419', fg:'#FFFA00'},
+};
+
+const AVAIL = {
+  'Available':     {dot:'#3AC12F', bg:'rgba(58,193,47,.12)',  fg:'#227A1B'},
+  'On assignment': {dot:'#003ACC', bg:'rgba(0,58,204,.10)',   fg:'#002E9E'},
+  'Limited':       {dot:'#E4DF00', bg:'rgba(255,250,0,.22)',  fg:'#7A6A00'},
+};
+
+const GROUPINGS = ['None','Role','Tier','Department'];
+
+const DEPARTMENTS = ['All departments','Marketing','Tech Brand','Performance','Strategy'];
+function pluralizeField(name) {
+  const l = name.toLowerCase();
+  return l.endsWith('y') && !/[aeiou]y$/.test(l) ? l.slice(0, -1) + 'ies' : l + 's';
+}
+
+const DEPTS_SEED = [
+  {name:'QA', members:1, created:'4 September 2026'},
+  {name:'Strategy', members:0, created:'4 September 2026'},
+];
+
+const FIELDS = [
+  {name:'Salary', values:['$$$$$','$$$$','$$$','$$','$'], departments:'All',      filter:true,  card:true},
+  {name:'Tier',   values:['Tier 1','Tier 2','Tier 3'],     departments:'Strategy', filter:true,  card:true},
+];
+
+const SAVED_VIEWS = [
+  {name:'All Rosies', live:false},
+  {name:'Tier 1 · available', live:true},
+  {name:'Strategy shortlist', live:false},
+];
+
+const BENCH_NOTES = [
+  {id:'3.1', text:'Flat table replaced with a card grid — circular avatar with initials, name, current role, department pill, salary badge, availability dot and state, LinkedIn link.'},
+  {id:'3.3', text:'Compact search sits inside the filter bar at the same weight as the dropdowns, with a scope line underneath. The full-width standalone search is gone.'},
+  {id:'3.4', text:'Flip Mode to Client: search shrinks out of the toolbar and the salary badge disappears. Admin-configured, not automatic.'},
+  {id:'3.6', text:'Group by Role / Tier / Department adds labelled section headers with a count badge. Saved views sit above the filter bar with their link state.'},
+];
+
+const NOTES = [
+  {id:'3.1', text:'Workspace picker rebuilt on the original hub layout: centred wordmark, three counters, accent rule under the filter bar, status badge per bench. Grey unlabelled cards are gone. Template bench moved out of the hub.'},
+  {id:'3.2', text:'First-visit tour — tooltip steps over a dimmed page, with progress dots, per-bubble dismiss and Skip all. Toggle "First-visit tour" above to walk it.'},
+  {id:'3.3', text:'Search is scoped and sits in the filter bar at the same weight as the sort control — no dominant search implying access to the whole Rosie database.'},
+];
+
+class Component extends DCLogic {
+  state = { ann:false, empty:false, tour:-1, tab:'All', anchor:null, statuses:{}, menu:null, copied:null,
+            screen:'hub', bench:null, mode:'Admin', group:'None', view:'All Rosies',
+            groupMenu:false, collapsed:{}, which:'All', whichMenu:false, deptMenu:null, picks:{}, filterMenu:null,
+            page:'Rosies', fieldModal:false, valueRows:[''], depts:['All departments'], newFieldName:'',
+            newFilter:true, newCard:true, fieldFlags:{}, fieldList: FIELDS.slice(),
+            deptModal:false, deptList:DEPTS_SEED, newDeptName:'', deptAssign:{}, rowDeptMenu:null,
+            profile: this.freshProfile(), newComment:'' };
+
+  flagOf(cf, kind) {
+    const set = this.state.fieldFlags[cf.name];
+    return set && kind in set ? set[kind] : cf[kind];
+  }
+
+  setFlag(name, kind, val) {
+    this.setState(p => ({fieldFlags: {...p.fieldFlags, [name]: {...(p.fieldFlags[name] || {}), [kind]: val}}}));
+  }
+
+  statusOf(b) { return this.state.statuses[b.slug] || b.status; }
+
+  setStatus(slug, status) {
+    this.setState(p => ({statuses: {...p.statuses, [slug]: status}, menu:null}));
+  }
+
+  copyLink(slug) {
+    this.setState({copied: slug});
+    clearTimeout(this._copyT);
+    this._copyT = setTimeout(() => this.setState({copied:null}), 1400);
+  }
+
+  measure(n) {
+    const step = TOUR[n];
+    const el = step && document.getElementById(step.target);
+    if (!el) return null;
+    const r = el.getBoundingClientRect();
+    const cx = r.left + r.width / 2;
+    const left = Math.min(Math.max(cx - 160, 16), Math.max(16, window.innerWidth - 336));
+    return {top: r.bottom + 16, left, pointer: Math.min(Math.max(cx - left - 7, 18), 288)};
+  }
+
+  goToStep(n) {
+    if (n < 0 || n >= TOUR.length) { this.setState({tour:-1, anchor:null}); return; }
+    const el = document.getElementById(TOUR[n].target);
+    if (el) {
+      const r = el.getBoundingClientRect();
+      if (r.top < 90 || r.bottom > window.innerHeight - 300) {
+        window.scrollTo({top: Math.max(0, r.top + window.scrollY - 160)});
+      }
+    }
+    this.setState({tour:n, anchor: this.measure(n)});
+    requestAnimationFrame(() => {
+      const a = this.measure(n);
+      if (a) this.setState({anchor:a});
+    });
+  }
+
+  benchVals() {
+    const s = this.state;
+    const admin = s.mode === 'Admin';
+    const picks = s.picks || {};
+    const WITH_DEPT = ROSIES.map(r => ({...r, dept: (s.deptAssign || {})[r.name] || r.dept}));
+    const ROSTER = WITH_DEPT.filter(r => Object.keys(picks).every(k => picks[k] === 'All' || r[k] === picks[k]));
+    const key = {Role:'role', Tier:'tier', Department:'dept'}[s.group];
+    let groups, groupNames = [];
+    if (!key) {
+      groups = [{name:'', count:'', labelled:false, rosies:ROSTER}];
+    } else {
+      const order = [];
+      ROSTER.forEach(r => { if (!order.includes(r[key])) order.push(r[key]); });
+      groupNames = order.sort();
+      groups = groupNames.filter(n => s.which === 'All' || s.which === n).map(name => {
+        const rosies = ROSTER.filter(r => r[key] === name);
+        const shut = !!(s.collapsed || {})[name];
+        return {
+          name,
+          count: rosies.length + (rosies.length === 1 ? ' Rosie' : ' Rosies'),
+          labelled: true,
+          chev: shut ? '▸' : '▾',
+          toggle: () => this.setState(p => ({collapsed: {...(p.collapsed || {}), [name]: !(p.collapsed || {})[name]}})),
+          rosies: shut ? [] : rosies,
+        };
+      });
+    }
+    const deptOf = (r) => (s.deptAssign || {})[r.name] || r.dept;
+    const allDeptNames = Array.from(new Set(ROSIES.map(x => x.dept).concat(s.deptList.map(x => x.name))));
+    const decorate = (r) => ({
+      ...r,
+      dept: deptOf(r),
+      toggleDept: (e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        this.setState(p => ({
+          rowDeptMenu: p.rowDeptMenu === r.name ? null : r.name,
+          rowDeptMenuPos: {top: rect.bottom + 4, left: rect.left},
+        }));
+      },
+      initials: r.name.split(' ').map(w => w[0]).join(''),
+      email: r.name.toLowerCase().replace(' ', '.') + '@wearerosie.com',
+      blurb: r.blurb || 'Casting notes to be added by the account team.',
+      location: r.location || 'Remote, US',
+      experience: r.experience || '5+ Years',
+      tierBg: TIER_COLOR[r.tier] ? TIER_COLOR[r.tier].bg : 'rgba(0,58,204,.1)',
+      tierFg: TIER_COLOR[r.tier] ? TIER_COLOR[r.tier].fg : '#003ACC',
+      tierShown: (() => { const f = s.fieldList.find(x => x.name === 'Tier'); return f ? this.flagOf(f, 'card') : true; })(),
+      salaryCardShown: (() => { const f = s.fieldList.find(x => x.name === 'Salary'); return f ? this.flagOf(f, 'card') : true; })(),
+      availSolidBg: (AVAIL[r.avail] || {}).bg || 'rgba(139,149,165,.15)',
+      availFg2: (AVAIL[r.avail] || {}).fg || '#5A6473',
+      skillChips: (r.skills || ['Strategy','Research','Copy']).slice(0,3).map(s2 => ({label:s2})),
+      openProfile: () => this.setState({page:'Profile', profile:{...this.freshProfile(), name:r.name}}),
+      availability: r.avail,
+      availDot: AVAIL[r.avail].dot,
+      availBg: AVAIL[r.avail].bg,
+      availFg: AVAIL[r.avail].fg,
+      salaryShown: admin,
+      needsReview: admin && r.needsReview,
+    });
+
+    return {
+      isAdmin: admin,
+      isClient: !admin,
+      columns: [{label:'Rosie'},{label:'Email'},{label:'Role'},{label:'LinkedIn'},{label:'Department'},{label:'Salary'},{label:''}],
+      clientRosies: ROSTER.map(decorate),
+      rosieTotal: ROSTER.length,
+      rosieFullTotal: WITH_DEPT.length,
+      benchSub: ROSTER.length + (ROSTER.length === 1 ? ' Rosie' : ' Rosies') + ' cast for this brief',
+      noResults: ROSTER.length === 0,
+      clearFilters: () => this.setState({picks:{}, filterMenu:null, which:'All'}),
+      setAdmin: () => this.setState({mode:'Admin', picks:{}, filterMenu:null}),
+      setClient: () => this.setState({mode:'Client', picks:{}, filterMenu:null}),
+      adminBg: admin ? '#0F1419' : '#fff', adminFg: admin ? '#fff' : '#718096',
+      clientBg: admin ? '#fff' : '#0F1419', clientFg: admin ? '#718096' : '#fff',
+      toggleMode: () => this.setState(p => ({mode: p.mode === 'Admin' ? 'Client' : 'Admin', picks:{}, filterMenu:null})),
+      modeLabel: admin ? 'Admin' : 'Client',
+      modeTrack: admin ? '#0F1419' : '#CBD2DB',
+      modeKnob: admin ? '19px' : '2px',
+      modeFg: admin ? '#0F1419' : '#5A6473',
+
+      pages: [
+        {label:'Overview',      icon:'⌂'},
+        {label:'Rosies',        icon:'◉'},
+        {label:'Opportunities', icon:'▤'},
+        {label:'Users',         icon:'◍'},
+        {label:'Departments',   icon:'◈'},
+        {label:'Custom Fields', icon:'≡'},
+      ].map(p => ({
+        ...p,
+        fg: s.page === p.label ? '#EA3C1F' : '#2D3748',
+        bg: s.page === p.label ? '#FAFAFA' : 'transparent',
+        go: () => this.setState({page: p.label, groupMenu:false}),
+      })),
+
+      isOverviewPage: s.page === 'Overview',
+      isRosiesPage: s.page === 'Rosies',
+      isDeptsPage: s.page === 'Departments',
+      isFieldsPage: s.page === 'Custom Fields',
+      goToRosies: () => this.setState({page:'Rosies'}),
+      departments: s.deptList.map(d => ({
+        ...d,
+        remove: () => this.setState(p => ({deptList: p.deptList.filter(x => x.name !== d.name)})),
+      })),
+      deptModal: s.deptModal,
+      openDeptModal: () => this.setState({deptModal:true, newDeptName:''}),
+      closeDeptModal: () => this.setState({deptModal:false}),
+      setDeptName: (e) => this.setState({newDeptName: e.target.value}),
+      createDept: () => this.setState(p => {
+        const name = (p.newDeptName || '').trim();
+        if (!name) return {deptModal:false};
+        return {deptModal:false, deptList: [...p.deptList, {name, members:0, created:'14 September 2026'}]};
+      }),
+      fieldColumns: [{label:'Field name'},{label:'Field values'},{label:'Departments'},{label:'Filterable by client'},{label:'Show on card'},{label:''}],
+      atFieldLimit: s.fieldList.length >= 6,
+      addFieldBd: s.fieldList.length >= 6 ? '#E2E8F0' : '#0F1419',
+      addFieldBg: s.fieldList.length >= 6 ? '#F5F6F8' : '#fff',
+      addFieldFg: s.fieldList.length >= 6 ? '#A0AAB8' : '#0F1419',
+      addFieldCursor: s.fieldList.length >= 6 ? 'not-allowed' : 'pointer',
+      customFields: s.fieldList.map(cf => {
+        const filterable = this.flagOf(cf, 'filter');
+        const onCard = this.flagOf(cf, 'card');
+        return {
+          name: cf.name,
+          departments: cf.departments,
+          values: cf.values.map(label => ({label})),
+          filterable,
+          filterTrack: filterable ? '#3AC12F' : '#CBD2DB',
+          filterKnob: filterable ? '21px' : '2px',
+          chipBg: (filterable || onCard) ? '#EDF2FE' : '#F1F3F6',
+          chipFg: (filterable || onCard) ? '#003ACC' : '#8B95A5',
+          nameFg: (filterable || onCard) ? '#0F1419' : '#8B95A5',
+          cardTrack: onCard ? '#3AC12F' : '#CBD2DB',
+          cardKnob: onCard ? '21px' : '2px',
+          toggleFilter: () => this.setFlag(cf.name, 'filter', !filterable),
+          toggleCard: () => this.setFlag(cf.name, 'card', !onCard),
+          jumpToFilter: () => {
+            const key = cf.name.toLowerCase();
+            this.setState({page:'Rosies', flashFilterKey:key});
+            clearTimeout(this._flashTimer);
+            this._flashTimer = setTimeout(() => this.setState({flashFilterKey:null}), 2200);
+          },
+        };
+      }),
+
+      fieldModal: s.fieldModal,
+      newFieldName: s.newFieldName,
+      setFieldName: (e) => this.setState({newFieldName: e.target.value}),
+      openFieldModal: () => { if (s.fieldList.length >= 6) return; this.setState({fieldModal:true, valueRows:[''], depts:['All departments'], newFilter:true, newCard:true, newFieldName:''}); },
+      closeFieldModal: () => this.setState({fieldModal:false}),
+      createField: () => this.setState(p => {
+        const name = (p.newFieldName || '').trim();
+        const values = p.valueRows.map(v => v.trim()).filter(Boolean);
+        if (!name || !values.length || p.fieldList.length >= 6) return {fieldModal:false};
+        const field = {name, values, departments: p.depts.join(', '), filter: p.newFilter, card: p.newCard};
+        return {fieldModal:false, fieldList: [...p.fieldList, field]};
+      }),
+      canAddValue: s.valueRows.length < 5,
+      valueRows: s.valueRows.map((text, i) => ({
+        text, placeholder: 'Value ' + (i + 1),
+        setVal: (e) => this.setState(p => { const v=[...p.valueRows]; v[i]=e.target.value; return {valueRows:v}; }),
+        canRemove: s.valueRows.length > 1,
+        remove: () => this.setState(p => ({valueRows: p.valueRows.filter((_, j) => j !== i)})),
+      })),
+      addValue: () => this.setState(p => p.valueRows.length < 5 ? {valueRows: [...p.valueRows, '']} : {}),
+      deptRows: s.depts.map((label, i) => ({
+        label,
+        bd: s.deptMenu === i ? '#0F1419' : '#CBD2DB',
+        open: s.deptMenu === i,
+        toggle: () => this.setState(p => ({deptMenu: p.deptMenu === i ? null : i})),
+        options: ['All departments'].concat(s.deptList.map(x => x.name)).map(opt => ({
+          label: opt,
+          tick: opt === label ? '✓' : '',
+          fg: opt === label ? '#0F1419' : '#5A6473',
+          pick: () => this.setState(p => ({depts: p.depts.map((d, j) => j === i ? opt : d), deptMenu:null})),
+        })),
+        remove: () => this.setState(p => ({depts: p.depts.filter((_, j) => j !== i), deptMenu:null})),
+      })),
+      addDept: () => this.setState(p => ({depts: [...p.depts, 'All departments']})),
+      newFilterTrack: s.newFilter ? '#3AC12F' : '#CBD2DB',
+      newFilterKnob: s.newFilter ? '23px' : '2px',
+      newCardTrack: s.newCard ? '#3AC12F' : '#CBD2DB',
+      newCardKnob: s.newCard ? '23px' : '2px',
+      toggleNewFilter: () => this.setState(p => ({newFilter: !p.newFilter})),
+      toggleNewCard: () => this.setState(p => ({newCard: !p.newCard})),
+
+      profileCta: admin ? 'Edit' : 'View',
+      searchShown: admin,
+      scopeNote: admin
+        ? 'Searching only Rosies assigned to this client.'
+        : 'Search is hidden on this client view — the shortlist is short enough to scan.',
+
+      filters: (admin
+        ? [{key:'dept', all:'All departments', groupLabel:'Department'}].concat(
+            s.fieldList.filter(cf => this.flagOf(cf, 'filter')).map(cf => ({key: cf.name.toLowerCase(), all: 'All ' + pluralizeField(cf.name), groupLabel: cf.name, custom: cf.values}))
+          )
+        : [{key:'role', all:'All roles', groupLabel:'Role'}, {key:'dept', all:'All departments', groupLabel:'Department'}].concat(
+            s.fieldList.filter(cf => this.flagOf(cf, 'filter') && this.flagOf(cf, 'card')).map(cf => ({key: cf.name.toLowerCase(), all: 'All ' + pluralizeField(cf.name), groupLabel: cf.name, custom: cf.values}))
+          )
+      ).map(spec => {
+        const picked = (s.picks || {})[spec.key] || 'All';
+        let values = [];
+        if (spec.custom) {
+          values = spec.custom.slice();
+        } else {
+          const pool = spec.key === 'dept' ? ROSIES.map(r => ({...r, dept: (s.deptAssign || {})[r.name] || r.dept})) : ROSIES;
+          pool.forEach(r => { if (!values.includes(r[spec.key])) values.push(r[spec.key]); });
+        }
+        return {
+          label: picked === 'All' ? spec.all : picked,
+          groupLabel: spec.groupLabel,
+          fg: picked === 'All' ? '#2D3748' : '#003ACC',
+          chipBg: picked === 'All' ? '#fff' : 'rgba(0,58,204,.08)',
+          bd: s.flashFilterKey === spec.key ? '#0097A7' : ((s.filterMenu === spec.key || picked !== 'All') ? '#003ACC' : '#E2E8F0'),
+          bd2: s.flashFilterKey === spec.key ? '#0097A7' : ((s.filterMenu === spec.key || picked !== 'All') ? '#003ACC' : '#E2E8F0'),
+          flashBg: s.flashFilterKey === spec.key ? '#E6F7F9' : 'transparent',
+          open: s.filterMenu === spec.key,
+          toggle: () => this.setState(p => ({filterMenu: p.filterMenu === spec.key ? null : spec.key})),
+          options: ['All'].concat(spec.custom ? values : values.sort()).map(v => ({
+            label: v === 'All' ? spec.all : v,
+            tick: v === picked ? '✓' : '',
+            fg: v === picked ? '#003ACC' : '#5A6473',
+            pick: () => this.setState(p => ({picks: {...(p.picks || {}), [spec.key]: v}, filterMenu:null})),
+          })),
+        };
+      }),
+
+      groupBy: s.group,
+      groupBd: s.groupMenu ? '#0F1419' : '#CBD2DB',
+      groupMenuOpen: !!s.groupMenu,
+      toggleGroupMenu: () => this.setState(p => ({groupMenu: !p.groupMenu})),
+      groupOptions: GROUPINGS.map(label => ({
+        label,
+        tick: label === s.group ? '✓' : '',
+        fg: label === s.group ? '#0F1419' : '#5A6473',
+        pick: () => this.setState({group:label, groupMenu:false, collapsed:{}, which:'All'}),
+      })),
+
+      groupPickerShown: s.group !== 'None',
+      whichGroup: s.which === 'All' ? 'All ' + s.group.toLowerCase() + 's' : s.which,
+      whichBd: s.whichMenu ? '#0F1419' : '#CBD2DB',
+      whichMenuOpen: !!s.whichMenu,
+      toggleWhichMenu: () => this.setState(p => ({whichMenu: !p.whichMenu})),
+      whichOptions: ['All'].concat(groupNames).map(label => ({
+        label: label === 'All' ? 'All ' + s.group.toLowerCase() + 's' : label,
+        tick: label === s.which ? '✓' : '',
+        fg: label === s.which ? '#0F1419' : '#5A6473',
+        pick: () => this.setState({which:label, whichMenu:false}),
+      })),
+
+      benchNotes: BENCH_NOTES,
+      groups: groups.map(g => ({...g, rosies: g.rosies.map(decorate)})),
+    };
+  }
+
+  freshProfile() {
+    return {
+      name: 'Ashley Stclair', showPhoto:false, showName:true,
+      qa: [{id:1, title:'Some info', hidden:false}],
+      rateValue:'', rateHidden:true, rateOpen:false,
+      reviewDismissed:false,
+      sectionHidden: {qa:false, work:false, edu:false, skills:false, lang:false, cf:false},
+      sectionOpen: {qa:true, work:true, edu:true, skills:true, lang:true, cf:true},
+      workEdit: {}, workDraft: {}, workConfirm: {}, workEditedFlags: {},
+      work: [
+        {id:1, title:'Strategic Partnership Analyst', subtitle:'Verizon Media', dates:'DEC 2017 - NOW', desc:'Reporting on media plans and partnership performance across EMEA, GST and the Nordics.', hidden:false},
+        {id:2, title:'Digital Account Manager', subtitle:'MerchantCantos', dates:'DEC 2017 - DEC 2017', desc:'Supported client service projects, primarily website builds and new-business research.', hidden:false},
+        {id:3, title:'Company Director', subtitle:'Noko Limited', dates:'DEC 2017 - NOV 2020', desc:'Account management consultancy focused on digital media, advertising and marketing.', hidden:false},
+      ],
+      edu: [
+        {id:1, title:'University of South Africa', subtitle:'Bachelor, Humanities/Humanistic Studies', dates:'', hidden:false},
+        {id:2, title:'Penryn College', subtitle:'', dates:'1998 - 2008', hidden:false},
+      ],
+      hardSkills: [{id:1, label:'Hard skill 1', hidden:false}],
+      softSkills: [{id:1, label:'Soft skill 1', hidden:false}],
+      tools: [{id:1, label:'Tools 1', hidden:false}],
+      industry: [{id:1, label:'Industry 1', hidden:false}],
+      depts: [{id:1, label:'Departments 1', hidden:false}],
+      languages: [{id:1, label:'English fluent', hidden:false}, {id:2, label:'Ukrainian native', hidden:false}],
+      salary: 2,
+      comments: [],
+      sectionHidden: {qa:false, work:false, edu:false, skills:false, lang:false, cf:false},
+      sectionOpen: {qa:true, work:true, edu:true, skills:true, lang:true, cf:true},
+    };
+  }
+
+  sectionHeaderVals(key, setP) {
+    const s = this.state, p = s.profile;
+    const hidden = !!(p.sectionHidden || {})[key];
+    const open = (p.sectionOpen || {})[key] !== false;
+    return {
+      [key + 'Hidden']: hidden,
+      [key + 'Open']: open,
+      [key + 'HeaderBg']: hidden ? '#FFFBEF' : '#FAFAFA',
+      [key + 'EyeIcon']: hidden ? '\u{1F6AB}' : '\u{1F441}',
+      [key + 'EyeColor']: hidden ? '#B7891F' : '#227A1B',
+      [key + 'EyeTitle']: hidden ? 'Hidden from client — click to show' : 'Visible to client — click to hide',
+      [key + 'EyeToggle']: () => setP(pr => {
+        const nh = !((pr.sectionHidden || {})[key]);
+        return {...pr, sectionHidden: {...pr.sectionHidden, [key]: nh}, sectionOpen: {...pr.sectionOpen, [key]: nh ? (pr.sectionOpen || {})[key] : true}};
+      }),
+      [key + 'Expand']: () => setP(pr => ({...pr, sectionOpen: {...pr.sectionOpen, [key]: true}})),
+      [key + 'ChevronToggle']: () => setP(pr => ({...pr, sectionOpen: {...pr.sectionOpen, [key]: !((pr.sectionOpen || {})[key] !== false)}})),
+      [key + 'Chevron']: open ? '\u25B4' : '\u25BE',
+    };
+  }
+
+  chipVal(item, toggle) {
+    return {label:item.label, fg: item.hidden ? '#B7C0CC' : '#0F1419', eyeFg: item.hidden ? '#B7C0CC' : '#EA3C1F', toggleHide: () => toggle(item.id)};
+  }
+
+  listItemVal(item, api) {
+    return {
+      title: item.title, subtitle: item.subtitle, dates: item.dates, desc: item.desc,
+      textFg: item.hidden ? '#B7C0CC' : '#0F1419', mutedFg: item.hidden ? '#D3D9E0' : '#8B95A5',
+      hideIcon: item.hidden ? '\u{1F441}' : '\u{1F6AB}', hideLabel: item.hidden ? 'Show' : 'Hide',
+      hideFg: item.hidden ? '#EA3C1F' : '#EA3C1F',
+      toggleEdit: () => {}, toggleHide: () => api.toggleHide(item.id), reset: () => {}, remove: () => api.remove(item.id),
+    };
+  }
+
+  workItemVal(item, key, setP) {
+    const s = this.state;
+    const editing = !!(s.workEdit || {})[item.id];
+    const confirmRemove = !!(s.workConfirm || {})[item.id];
+    const draft = (s.workDraft || {})[item.id] || item;
+    const wasEdited = !!(s.workEditedFlags || {})[item.id];
+    const setDraftField = (field) => (e) => this.setState(prev => ({workDraft: {...prev.workDraft, [item.id]: {...(prev.workDraft[item.id] || item), [field]: e.target.value}}}));
+    return {
+      title: editing ? draft.title : item.title, subtitle: editing ? draft.subtitle : item.subtitle,
+      dates: editing ? draft.dates : item.dates, desc: editing ? draft.desc : item.desc,
+      textFg: item.hidden ? '#B7C0CC' : '#0F1419', mutedFg: item.hidden ? '#D3D9E0' : '#8B95A5',
+      hideIcon: item.hidden ? '\u{1F441}' : '\u{1F6AB}', hideLabel: item.hidden ? 'Show' : 'Hide',
+      hideFg: item.hidden ? '#B7891F' : '#8B95A5',
+      borderColor: wasEdited ? '#EA3C1F' : 'transparent',
+      editing, confirmRemove, wasEdited,
+      showContent: !editing && !confirmRemove,
+      toggleHide: () => this.setState(prev => { const list = prev.profile[key].map(x => x.id === item.id ? {...x, hidden:!x.hidden} : x); return {profile:{...prev.profile, [key]:list}}; }),
+      startEdit: () => this.setState(prev => ({workEdit: {...prev.workEdit, [item.id]:true}, workDraft: {...prev.workDraft, [item.id]:item}})),
+      cancel: () => this.setState(prev => ({workEdit: {...prev.workEdit, [item.id]:false}})),
+      setTitle: setDraftField('title'), setSubtitle: setDraftField('subtitle'), setDates: setDraftField('dates'), setDesc: setDraftField('desc'),
+      save: () => this.setState(prev => {
+        const d = prev.workDraft[item.id];
+        const list = prev.profile[key].map(x => x.id === item.id ? {...x, ...d} : x);
+        return {profile:{...prev.profile, [key]:list}, workEdit:{...prev.workEdit, [item.id]:false}, workEditedFlags:{...prev.workEditedFlags, [item.id]:true}};
+      }),
+      undoEdit: () => this.setState(prev => ({workEditedFlags: {...prev.workEditedFlags, [item.id]:false}})),
+      askRemove: () => this.setState(prev => ({workConfirm: {...prev.workConfirm, [item.id]:true}})),
+      confirmYes: () => this.setState(prev => ({profile:{...prev.profile, [key]: prev.profile[key].filter(x => x.id !== item.id)}, workConfirm:{...prev.workConfirm, [item.id]:false}})),
+      confirmNo: () => this.setState(prev => ({workConfirm: {...prev.workConfirm, [item.id]:false}})),
+    };
+  }
+
+  profileVals() {
+    const s = this.state;
+    const p = s.profile || this.freshProfile();
+    const setP = (fn) => this.setState(prev => ({profile: fn({...prev.profile})}));
+    const toggleChip = (key) => (id) => setP(pr => { pr[key] = pr[key].map(c => c.id === id ? {...c, hidden:!c.hidden} : c); return pr; });
+    const listApi = (key) => ({
+      toggleHide: (id) => setP(pr => { pr[key] = pr[key].map(x => x.id === id ? {...x, hidden:!x.hidden} : x); return pr; }),
+      remove: (id) => setP(pr => { pr[key] = pr[key].filter(x => x.id !== id); return pr; }),
+    });
+    const hideAllState = (key) => {
+      const allHidden = p[key].length > 0 && p[key].every(x => x.hidden);
+      return {
+        label: allHidden ? 'Show all' : 'Hide all',
+        toggle: () => setP(pr => { pr[key] = pr[key].map(x => ({...x, hidden: !allHidden})); return pr; }),
+      };
+    };
+    const qaHA = hideAllState('qa'), workHA = hideAllState('work'), eduHA = hideAllState('edu');
+    const noPhoto = !p.showPhoto;
+    const noWork = p.work.length === 0;
+    const noSkills = p.hardSkills.length === 0 && p.softSkills.length === 0;
+    const needsReview = !p.reviewDismissed && (noPhoto || noWork || noSkills);
+    const skillsAllHidden = ['hardSkills','softSkills','tools'].every(k => p[k].every(c => c.hidden));
+    const expAllHidden = ['industry','depts'].every(k => p[k].every(c => c.hidden));
+    const langAllHidden = p.languages.every(c => c.hidden);
+
+    return {
+      isProfilePage: s.page === 'Profile',
+      profileName: p.name.toUpperCase(),
+      openNewProfile: () => this.setState({page:'Profile', profile:this.freshProfile()}),
+      backToRosies: () => this.setState({page:'Rosies'}),
+      resetProfile: () => this.setState({profile:this.freshProfile()}),
+
+      photoIcon: p.showPhoto ? '\u{1F441}' : '\u{1F6AB}', photoLabel: p.showPhoto ? 'Hide photo' : 'Show photo',
+      togglePhoto: () => setP(pr => ({...pr, showPhoto:!pr.showPhoto})),
+      nameIcon: p.showName ? '\u{1F441}' : '\u{1F6AB}', nameLabel: p.showName ? 'Hide name' : 'Show name',
+      toggleName: () => setP(pr => ({...pr, showName:!pr.showName})),
+
+      qaItems: p.qa.map(i => this.listItemVal(i, listApi('qa'))),
+      qaItemsHideAll: qaHA.toggle, qaItemsHideAllLabel: qaHA.label,
+      ...this.sectionHeaderVals('qa', setP),
+      ...this.sectionHeaderVals('skills', setP),
+      ...this.sectionHeaderVals('lang', setP),
+      ...this.sectionHeaderVals('cf', setP),
+
+      needsReview, dismissReview: () => setP(pr => ({...pr, reviewDismissed:true})),
+
+      rateValue: p.rateValue,
+      setRateValue: (e) => setP(pr => ({...pr, rateValue:e.target.value})),
+      rateHidden: p.rateHidden,
+      rateHeaderBg: p.rateHidden ? '#FFFBEF' : '#FAFAFA',
+      rateEyeIcon: p.rateHidden ? '\u{1F6AB}' : '\u{1F441}',
+      rateEyeColor: p.rateHidden ? '#B7891F' : '#227A1B',
+      rateEyeTitle: p.rateHidden ? 'Hidden from client — click to show' : 'Visible to client — click to hide',
+      rateEyeToggle: () => setP(pr => ({...pr, rateHidden:!pr.rateHidden, rateOpen: pr.rateHidden ? pr.rateOpen : true})),
+      rateOpen: p.rateOpen,
+      rateExpand: () => setP(pr => ({...pr, rateOpen:true})),
+      rateChevronToggle: () => setP(pr => ({...pr, rateOpen:!pr.rateOpen})),
+      rateChevron: p.rateOpen ? '\u25B4' : '\u25BE',
+
+      workItems: p.work.map(i => this.workItemVal(i, 'work', setP)),
+      ...this.sectionHeaderVals('work', setP),
+      workAdd: () => setP(pr => { pr.work = [...pr.work, {id:Date.now(), title:'New role', subtitle:'Company', dates:'', desc:'', hidden:false}]; return pr; }),
+      eduItems: p.edu.map(i => this.listItemVal(i, listApi('edu'))),
+      ...this.sectionHeaderVals('edu', setP),
+      eduAdd: () => setP(pr => { pr.edu = [...pr.edu, {id:Date.now(), title:'New school', subtitle:'', dates:'', hidden:false}]; return pr; }),
+
+      hardSkills: p.hardSkills.map(c => this.chipVal(c, toggleChip('hardSkills'))),
+      softSkills: p.softSkills.map(c => this.chipVal(c, toggleChip('softSkills'))),
+      tools: p.tools.map(c => this.chipVal(c, toggleChip('tools'))),
+      skillsHideAll: () => setP(pr => { ['hardSkills','softSkills','tools'].forEach(k => pr[k] = pr[k].map(c => ({...c, hidden:!skillsAllHidden}))); return pr; }),
+      skillsHideAllLabel: skillsAllHidden ? 'Show all' : 'Hide all',
+
+      industryChips: p.industry.map(c => this.chipVal(c, toggleChip('industry'))),
+      deptChips: p.depts.map(c => this.chipVal(c, toggleChip('depts'))),
+      expertiseHideAll: () => setP(pr => { ['industry','depts'].forEach(k => pr[k] = pr[k].map(c => ({...c, hidden:!expAllHidden}))); return pr; }),
+      expertiseHideAllLabel: expAllHidden ? 'Show all' : 'Hide all',
+
+      languages: p.languages.map(c => this.chipVal(c, toggleChip('languages'))),
+      langHideAll: () => setP(pr => { pr.languages = pr.languages.map(c => ({...c, hidden:!langAllHidden})); return pr; }),
+      langHideAllLabel: langAllHidden ? 'Show all' : 'Hide all',
+
+      salaryOptions: ['$$$$$','$$$$','$$$','$$','$'].map((label, i) => ({
+        label,
+        pick: () => setP(pr => ({...pr, salary:i})),
+        bd: i === p.salary ? '#EA3C1F' : '#0F1419',
+        bg: i === p.salary ? '#FEEEEA' : '#fff',
+        fg: i === p.salary ? '#EA3C1F' : '#0F1419',
+      })),
+
+      comments: p.comments,
+      setComment: (e) => { this.state.newComment = e.target.value; this.forceUpdate(); },
+      clearComment: () => { this.state.newComment = ''; this.forceUpdate(); },
+      postComment: () => { const t = (this.state.newComment || '').trim(); if (!t) return; setP(pr => ({...pr, comments:[...pr.comments, {id:Date.now(), text:t}]})); this.state.newComment=''; },
+    };
+  }
+
+  confirmVals() {
+    const s = this.state;
+    const c = s.confirm;
+    const word = c ? c.type.toUpperCase() : '';
+    const match = c && (s.confirmInput || '').trim().toUpperCase() === word;
+    return {
+      confirmOpen: !!c,
+      confirmTitle: c ? (c.type === 'delete' ? 'Delete bench' : 'Duplicate bench') : '',
+      confirmBody: c ? (c.type === 'delete'
+        ? '"' + c.name + '" and everything on it will be permanently removed.'
+        : 'This will create a copy of "' + c.name + '".') : '',
+      confirmWord: word,
+      confirmInput: s.confirmInput || '',
+      confirmSetInput: (e) => { this.state.confirmInput = e.target.value; this.forceUpdate(); },
+      confirmCta: c && c.type === 'delete' ? 'Delete' : 'Duplicate',
+      confirmBtnBg: match ? (c && c.type === 'delete' ? '#EA3C1F' : '#0F1419') : '#CBD2DB',
+      confirmBtnCursor: match ? 'pointer' : 'not-allowed',
+      confirmCancel: () => this.setState({confirm:null, confirmInput:''}),
+      confirmGo: () => {
+        if (!match) return;
+        if (c.type === 'delete') this.setState(p => ({benchList: (p.benchList || BENCHES).filter(b => b.slug !== c.slug), confirm:null, confirmInput:''}));
+        else this.setState(p => {
+          const src = (p.benchList || BENCHES).find(b => b.slug === c.slug);
+          const copy = {...src, name: src.name + ' (copy)', slug: src.slug + '-copy-' + Date.now()};
+          return {benchList: [...(p.benchList || BENCHES), copy], confirm:null, confirmInput:''};
+        });
+      },
+    };
+  }
+
+  rowDeptVals() {
+    const s = this.state;
+    const name = s.rowDeptMenu;
+    const pos = s.rowDeptMenuPos || {top:0, left:0};
+    const current = name ? ((s.deptAssign || {})[name] || (ROSIES.find(r => r.name === name) || {}).dept) : null;
+    const allDeptNames = Array.from(new Set(ROSIES.map(x => x.dept).concat((s.deptList || []).map(x => x.name))));
+    return {
+      rowDeptMenuOpen: !!name,
+      rowDeptMenuTop: pos.top + 'px',
+      rowDeptMenuLeft: pos.left + 'px',
+      closeRowDeptMenu: () => this.setState({rowDeptMenu:null}),
+      rowDeptMenuOptions: allDeptNames.map(dn => ({
+        label: dn,
+        tick: dn === current ? '✓' : '',
+        fg: dn === current ? '#0F1419' : '#5A6473',
+        pick: () => this.setState(p => ({deptAssign: {...(p.deptAssign || {}), [name]: dn}, rowDeptMenu:null})),
+      })),
+    };
+  }
+
+  renderVals() {
+    const s = this.state;
+    const t = s.tour;
+    const step = TOUR[t] || TOUR[0];
+    const a = s.anchor;
+    const on = (v) => v ? {bg:'#0F1419', fg:'#fff'} : {bg:'#fff', fg:'#718096'};
+    const ann = on(s.ann), tr = on(t >= 0), em = on(s.empty);
+    const live = (s.benchList || BENCHES).map(b => ({...b, status: this.statusOf(b)}));
+    const shown = s.tab === 'All' ? live : live.filter(b => b.status === s.tab);
+
+    return {
+      ann: s.ann, empty: s.empty, populated: !s.empty, notes: NOTES,
+      annBg:ann.bg, annFg:ann.fg, tourBg:tr.bg, tourFg:tr.fg, emptyBg:em.bg, emptyFg:em.fg,
+      toggleAnn: () => this.setState(p => ({ann:!p.ann})),
+      toggleEmpty: () => this.setState(p => ({empty:!p.empty, tour:-1, anchor:null})),
+      startTour: () => { if (t >= 0) this.setState({tour:-1, anchor:null}); else this.goToStep(0); },
+      endTour: () => this.setState({tour:-1, anchor:null}),
+      nextTour: () => this.goToStep(t + 1),
+
+      statBenches: live.length,
+      statTalent: live.reduce((n,b) => n + b.total, 0),
+      statShared: live.filter(b => b.status === 'Shared').length,
+
+      tabs: ['All','Draft','In Review','Shared','Feedback'].map(label => ({
+        label,
+        bg: s.tab === label ? '#0F1419' : '#fff',
+        fg: s.tab === label ? '#fff' : '#718096',
+        bd: s.tab === label ? '#0F1419' : '#E2E8F0',
+        go: () => this.setState({tab:label}),
+      })),
+
+      isHub: s.screen === 'hub',
+      isBench: s.screen === 'bench',
+      goHub: () => this.setState({screen:'hub', menu:null}),
+      benchName: s.bench ? s.bench.name : '',
+      benchSub: ROSIES.length + ' Rosies cast for this client · updated ' + (s.bench ? s.bench.updated : ''),
+
+      benches: shown.map(b => {
+        const live = b.status === 'Shared' || b.status === 'Feedback';
+        return {
+          ...b,
+          open: (e) => { if (e && e.target && e.target.closest && e.target.closest('[data-no-nav]')) return; this.setState({screen:'bench', bench:b, menu:null, tour:-1, anchor:null, page:'Rosies', mode:'Client'}); },
+          initial: b.name.charAt(0),
+          badgeBg: BADGE[b.status].bg,
+          badgeFg: BADGE[b.status].fg,
+          dot: BADGE[b.status].dot,
+          menuOpen: s.menu === b.slug,
+          menuBd: s.menu === b.slug ? '#0F1419' : '#E2E8F0',
+          toggleMenu: (e) => { e.stopPropagation(); this.setState(p => ({menu: p.menu === b.slug ? null : b.slug})); },
+          options: STATUSES.map(label => ({
+            label,
+            dot: BADGE[label].dot,
+            fg: label === b.status ? '#0F1419' : '#5A6473',
+            pick: () => this.setStatus(b.slug, label),
+          })),
+          logoId: 'bench-logo-' + b.slug,
+          stopBubble: (e) => e.stopPropagation(),
+          copy: (e) => { e.stopPropagation(); if (live) this.copyLink(b.slug); },
+          askDelete: (e) => { e.stopPropagation(); this.setState({confirm:{type:'delete', slug:b.slug, name:b.name}, confirmInput:''}); },
+          askCopy: (e) => { e.stopPropagation(); this.setState({confirm:{type:'copy', slug:b.slug, name:b.name}, confirmInput:''}); },
+          linkNote: live ? (s.copied === b.slug ? 'copied!' : 'share —') : 'not shared yet',
+          linkLabel: live ? (s.copied === b.slug ? 'Link copied ✓' : 'Client view ↗') : 'Link off',
+          linkBg: live ? (s.copied === b.slug ? '#0F1419' : '#FFFA00') : '#fff',
+          linkFg: live ? (s.copied === b.slug ? '#FFFA00' : '#0F1419') : '#8B95A5',
+          linkBd: live ? '#0F1419' : '#E2E8F0',
+          linkCursor: live ? 'pointer' : 'default',
+        };
+      }),
+
+      ...this.benchVals(),
+      ...this.rowDeptVals(),
+      ...this.profileVals(),
+      ...this.confirmVals(),
+
+      tourOn: t >= 0,
+      tourTitle: step.title, tourBody: step.body,
+      tourTop: a ? a.top + 'px' : '30%',
+      tourLeft: a ? a.left + 'px' : 'calc(50% - 160px)',
+      tourPointer: a ? a.pointer + 'px' : '150px',
+      tourNext: t >= TOUR.length - 1 ? 'Done' : 'Next',
+      tourDots: TOUR.map((_, i) => ({bg: i === t ? '#0F1419' : '#D8DCE2'})),
+    };
+  }
+}
+
+</script>
+</body>
+</html>
